@@ -1,6 +1,6 @@
-import {modelUtil} from "../util/modelUtil";
-import {constants} from "../util/constants";
-import {Model} from "../externals/objectmodel";
+import { modelUtil } from "../util/modelUtil";
+import { constants } from "../util/constants";
+import { Model } from "../externals/objectmodel";
 
 class InputEventKey extends Model({
     id: String,
@@ -11,12 +11,16 @@ class InputEventKey extends Model({
     keyName: [String],
     repeat: [Number],
     timeout: [Number],
-    holdDuration: [Number]
+    holdDuration: [Number],
 }) {
     constructor(properties, elementToCopy) {
-        properties = modelUtil.setDefaults(properties, elementToCopy, InputEventKey);
+        properties = modelUtil.setDefaults(
+            properties,
+            elementToCopy,
+            InputEventKey
+        );
         super(properties);
-        this.id = this.id || modelUtil.generateId('input-event-key')
+        this.id = this.id || modelUtil.generateId("input-event-key");
     }
 
     isValid() {
@@ -34,7 +38,7 @@ InputEventKey.defaults({
     modelVersion: constants.MODEL_VERSION,
     repeat: 1,
     timeout: 0,
-    holdDuration: 0
+    holdDuration: 0,
 });
 
-export {InputEventKey};
+export { InputEventKey };

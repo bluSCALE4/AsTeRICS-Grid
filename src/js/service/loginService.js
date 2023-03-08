@@ -1,12 +1,12 @@
-import $ from '../externals/jquery.js';
-import superlogin from 'superlogin-client';
-import {localStorageService} from "./data/localStorageService";
-import {encryptionService} from "./data/encryptionService";
-import {constants} from "../util/constants";
-import {databaseService} from "./data/databaseService";
-import {Router} from "../router";
-import {webradioService} from "./webradioService.js";
-import {MainVue} from "../vue/mainVue.js";
+import $ from "../externals/jquery.js";
+import superlogin from "superlogin-client";
+import { localStorageService } from "./data/localStorageService";
+import { encryptionService } from "./data/encryptionService";
+import { constants } from "../util/constants";
+import { databaseService } from "./data/databaseService";
+import { Router } from "../router";
+import { webradioService } from "./webradioService.js";
+import { MainVue } from "../vue/mainVue.js";
 
 let loginService = {};
 let _loginInfo = null;
@@ -18,11 +18,13 @@ let _loginInProgress = false;
 
 let _lastParamHashedPw = null;
 let _lastParamSaveUser = null;
-let _serverUrl = constants.IS_ENVIRONMENT_PROD ? 'https://login.couchdb.asterics-foundation.org' : 'http://' + location.hostname + ':3000';
-loginService.ERROR_CODE_UNAUTHORIZED = 'ERROR_CODE_UNAUTHORIZED';
+let _serverUrl = constants.IS_ENVIRONMENT_PROD
+    ? "https://login.couchdb.asterics-foundation.org"
+    : "http://" + location.hostname + ":3000";
+loginService.ERROR_CODE_UNAUTHORIZED = "ERROR_CODE_UNAUTHORIZED";
 
-loginService.ERROR_CODE_LOCKED = 'ERROR_CODE_LOCKED';
-loginService.ERROR_CODE_NETWORK_ERROR = 'ERROR_CODE_NETWORK_ERROR';
+loginService.ERROR_CODE_LOCKED = "ERROR_CODE_LOCKED";
+loginService.ERROR_CODE_NETWORK_ERROR = "ERROR_CODE_NETWORK_ERROR";
 superlogin.configure(getConfig());
 
 /**
@@ -83,7 +85,7 @@ loginService.loginStoredUser = function (user, dontRoute) {
         return Promise.resolve();
     }
     if (_loginInProgress) {
-        log.warn('login currently in progress - aborting...');
+        log.warn("login currently in progress - aborting...");
         return Promise.reject();
     }
     _tryUser = user;
@@ -97,7 +99,10 @@ loginService.loginStoredUser = function (user, dontRoute) {
             loginService.logout();
         }
 
-        if (savedOnlineUsers.includes(user) && localStorageService.isDatabaseSynced(user)) {
+        if (
+            savedOnlineUsers.includes(user) &&
+            localStorageService.isDatabaseSynced(user)
+        ) {
             let password = localStorageService.getUserPassword(user);
             localStorageService.setAutologinUser(user);
             databaseService.initForUser(user, password).then(() => {
@@ -105,13 +110,18 @@ loginService.loginStoredUser = function (user, dontRoute) {
                 resolve();
             });
         } else if (savedOnlineUsers.includes(user)) {
-            log.info("waiting for successful login because user wasn't completely synced before...");
+            log.info(
+                "waiting for successful login because user wasn't completely synced before..."
+            );
             let password = localStorageService.getUserPassword(user);
-            loginService.loginHashedPassword(user, password, true).then(() => {
-                resolve();
-            }).catch((reason) => {
-                reject(reason);
-            });
+            loginService
+                .loginHashedPassword(user, password, true)
+                .then(() => {
+                    resolve();
+                })
+                .catch((reason) => {
+                    reject(reason);
+                });
         } else if (savedLocalUsers.includes(user)) {
             localStorageService.setAutologinUser(user);
             databaseService.initForUser(user, user).then(() => {
@@ -134,7 +144,7 @@ loginService.loginStoredUser = function (user, dontRoute) {
  * logs out a logged in user from remote superlogin
  */
 loginService.logout = function () {
-    log.debug('logging out user: ' + _loggedInUser);
+    log.debug("logging out user: " + _loggedInUser);
     $(document).trigger(constants.EVENT_USER_CHANGING);
     loginService.stopAutoRetryLogin();
     webradioService.stop();
@@ -165,21 +175,31 @@ loginService.register = function (user, plainPassword, saveUser) {
     user = user.trim();
     let password = encryptionService.getUserPasswordHash(plainPassword);
     log.debug("password hash: " + password);
-    return superlogin.register({
-        username: user,
-        email: new Date().getTime() + '.' + Math.random() + '@norealmail.org',
-        password: password,
-        confirmPassword: password
-    }).then((info) => {
-        return loginInternal(user, password, saveUser)
-    }).then(() => {
-        log.info('registration successful!');
-        return databaseService.registerForUser(_loggedInUser, password, loginService.getLoggedInUserDatabase(), !saveUser);
-    }).catch(reason => {
-        log.info('registration failed!');
-        log.info(reason);
-        return Promise.reject(reason);
-    });
+    return superlogin
+        .register({
+            username: user,
+            email:
+                new Date().getTime() + "." + Math.random() + "@norealmail.org",
+            password: password,
+            confirmPassword: password,
+        })
+        .then((info) => {
+            return loginInternal(user, password, saveUser);
+        })
+        .then(() => {
+            log.info("registration successful!");
+            return databaseService.registerForUser(
+                _loggedInUser,
+                password,
+                loginService.getLoggedInUserDatabase(),
+                !saveUser
+            );
+        })
+        .catch((reason) => {
+            log.info("registration failed!");
+            log.info(reason);
+            return Promise.reject(reason);
+        });
 };
 
 /**
@@ -188,7 +208,7 @@ loginService.register = function (user, plainPassword, saveUser) {
  * @param hashedUserPassword
  * @return {*}
  */
-loginService.registerOffline = function(username, hashedUserPassword) {
+loginService.registerOffline = function (username, hashedUserPassword) {
     loginService.logout();
     localStorageService.saveLocalUser(username);
     localStorageService.setAutologinUser(username);
@@ -206,16 +226,22 @@ loginService.validateUsername = function (username) {
             resolve(constants.VALIDATION_ERROR_REGEX);
             return;
         }
-        if (localStorageService.isSavedLocalUser(username) || username === constants.LOCAL_DEMO_USERNAME) {
+        if (
+            localStorageService.isSavedLocalUser(username) ||
+            username === constants.LOCAL_DEMO_USERNAME
+        ) {
             resolve(constants.VALIDATION_ERROR_EXISTING);
             return;
         }
-        superlogin.validateUsername(username).then(() => {
-            resolve(constants.VALIDATION_VALID);
-        }, (reason) => {
-            log.debug(reason);
-            resolve(constants.VALIDATION_ERROR_EXISTING);
-        });
+        superlogin.validateUsername(username).then(
+            () => {
+                resolve(constants.VALIDATION_VALID);
+            },
+            (reason) => {
+                log.debug(reason);
+                resolve(constants.VALIDATION_ERROR_EXISTING);
+            }
+        );
     });
 };
 
@@ -237,58 +263,89 @@ function loginInternal(user, hashedPassword, saveUser) {
     _lastParamHashedPw = hashedPassword;
     _lastParamSaveUser = saveUser;
     user = user.trim();
-    return superlogin.login({
-        username: user,
-        password: hashedPassword
-    }).then((info) => {
-        log.info('login success!');
-        loginService.stopAutoRetryLogin();
-        _loginInfo = info;
-        _loggedInUser = user;
-        localStorageService.setLastActiveUser(user);
-        localStorageService.setAutologinUser(saveUser ? user: '');
-        if (saveUser) {
-            localStorageService.saveUserPassword(user, hashedPassword);
-        }
-        return Promise.resolve();
-    });
+    return superlogin
+        .login({
+            username: user,
+            password: hashedPassword,
+        })
+        .then((info) => {
+            log.info("login success!");
+            loginService.stopAutoRetryLogin();
+            _loginInfo = info;
+            _loggedInUser = user;
+            localStorageService.setLastActiveUser(user);
+            localStorageService.setAutologinUser(saveUser ? user : "");
+            if (saveUser) {
+                localStorageService.saveUserPassword(user, hashedPassword);
+            }
+            return Promise.resolve();
+        });
 }
 
-function loginHashedPasswordInternal (user, hashedPassword, saveUser) {
-    return loginInternal(user, hashedPassword, saveUser).then(() => {
-        return databaseService.initForUser(user, hashedPassword, loginService.getLoggedInUserDatabase(), !saveUser).then(() => {
-            return Promise.resolve(true);
-        });
-    }, (reason) => {
-        if (_tryUser !== user) {
-            return Promise.reject(); //call from autologin that is outdated
-        }
-        log.info('online login failed!');
-        log.debug(reason);
-        if (localStorageService.isDatabaseSynced(user)) {
-            log.info('using offline local database...');
-            localStorageService.setLastActiveUser(user);
-            localStorageService.setAutologinUser(saveUser ? user : '');
-            if (reasonToErrorCode(reason) !== loginService.ERROR_CODE_UNAUTHORIZED) {
-                autoRetryLogin(user, hashedPassword, saveUser);
+function loginHashedPasswordInternal(user, hashedPassword, saveUser) {
+    return loginInternal(user, hashedPassword, saveUser).then(
+        () => {
+            return databaseService
+                .initForUser(
+                    user,
+                    hashedPassword,
+                    loginService.getLoggedInUserDatabase(),
+                    !saveUser
+                )
+                .then(() => {
+                    return Promise.resolve(true);
+                });
+        },
+        (reason) => {
+            if (_tryUser !== user) {
+                return Promise.reject(); //call from autologin that is outdated
             }
-            return databaseService.initForUser(user, hashedPassword).then(() => {
-                return Promise.resolve(false);
-            });
-        } else {
-            return Promise.reject(reasonToErrorCode(reason));
+            log.info("online login failed!");
+            log.debug(reason);
+            if (localStorageService.isDatabaseSynced(user)) {
+                log.info("using offline local database...");
+                localStorageService.setLastActiveUser(user);
+                localStorageService.setAutologinUser(saveUser ? user : "");
+                if (
+                    reasonToErrorCode(reason) !==
+                    loginService.ERROR_CODE_UNAUTHORIZED
+                ) {
+                    autoRetryLogin(user, hashedPassword, saveUser);
+                }
+                return databaseService
+                    .initForUser(user, hashedPassword)
+                    .then(() => {
+                        return Promise.resolve(false);
+                    });
+            } else {
+                return Promise.reject(reasonToErrorCode(reason));
+            }
         }
-    });
+    );
 }
 
 function reasonToErrorCode(reason) {
-    if (reason && reason.error && reason.error.toLowerCase() === 'unauthorized' && reason.message && reason.message.includes('locked')) {
+    if (
+        reason &&
+        reason.error &&
+        reason.error.toLowerCase() === "unauthorized" &&
+        reason.message &&
+        reason.message.includes("locked")
+    ) {
         return loginService.ERROR_CODE_UNAUTHORIZED;
     }
-    if (reason && reason.error && reason.error.toLowerCase() === 'unauthorized') {
+    if (
+        reason &&
+        reason.error &&
+        reason.error.toLowerCase() === "unauthorized"
+    ) {
         return loginService.ERROR_CODE_UNAUTHORIZED;
     }
-    if (reason && reason.message && reason.message.toLowerCase() === 'network error') {
+    if (
+        reason &&
+        reason.message &&
+        reason.message.toLowerCase() === "network error"
+    ) {
         return loginService.ERROR_CODE_NETWORK_ERROR;
     }
 }
@@ -307,7 +364,7 @@ function getConfig() {
         // An optional URL to API server, by default a current window location is used.
         serverUrl: _serverUrl,
         // The base URL for the SuperLogin routes with leading and trailing slashes (defaults to '/auth')
-        baseUrl: '/auth',
+        baseUrl: "/auth",
         // Specific endpoint for social authentication and social link popups (defaults to `${location.origin}${baseUrl}`)
         //socialUrl: 'http://' + location.hostname + ':3001/auth',
         // A list of API endpoints to automatically add the Authorization header to
@@ -316,7 +373,7 @@ function getConfig() {
         // Set this to true if you do not want the URL bar host automatically added to the list
         noDefaultEndpoint: false,
         // Where to save your session token: localStorage ('local') or sessionStorage ('session'), default: 'local'
-        storage: 'local',
+        storage: "local",
         // The authentication providers that are supported by your SuperLogin host
         //providers: ['facebook', 'twitter'],
         // Sets when to check if the session is expired during the setup.
@@ -330,25 +387,29 @@ function getConfig() {
         // The number of milliseconds before a request times out
         // If the request takes longer than `timeout`, the request will be aborted.
         // Default is 0, meaning it won't timeout.
-        timeout: 0
+        timeout: 0,
     };
 }
 
 function init() {
-    $(document).on(constants.EVENT_DB_CONNECTION_LOST, function(e){
-        log.info('connection lost! auto-retrying login after 10 seconds...');
-        if(_lastParamUser && _lastParamHashedPw) {
-            autoRetryLogin(_lastParamUser, _lastParamHashedPw, _lastParamSaveUser);
+    $(document).on(constants.EVENT_DB_CONNECTION_LOST, function (e) {
+        log.info("connection lost! auto-retrying login after 10 seconds...");
+        if (_lastParamUser && _lastParamHashedPw) {
+            autoRetryLogin(
+                _lastParamUser,
+                _lastParamHashedPw,
+                _lastParamSaveUser
+            );
         }
     });
 
     $(document).on(constants.EVENT_DB_DATAMODEL_UPDATE, function () {
         loginService.logout();
-        localStorageService.setAutologinUser('');
+        localStorageService.setAutologinUser("");
         Router.toLogin();
     });
 }
 
 init();
 
-export {loginService};
+export { loginService };

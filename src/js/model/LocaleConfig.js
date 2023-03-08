@@ -1,5 +1,5 @@
-import {Model} from "../externals/objectmodel";
-import {constants} from "../util/constants";
+import { Model } from "../externals/objectmodel";
+import { constants } from "../util/constants";
 
 class LocaleConfig extends Model({
     modelName: String,
@@ -9,7 +9,7 @@ class LocaleConfig extends Model({
     secondVoice: [String],
     voiceLangIsTextLang: [Boolean],
     voicePitch: [Number],
-    voiceRate: [Number]
+    voiceRate: [Number],
 }) {
     constructor(properties) {
         super(properties);
@@ -22,7 +22,7 @@ class LocaleConfig extends Model({
 
 LocaleConfig.defaults({
     modelName: LocaleConfig.getModelName(),
-    modelVersion: constants.MODEL_VERSION
+    modelVersion: constants.MODEL_VERSION,
 });
 
-export {LocaleConfig};
+export { LocaleConfig };

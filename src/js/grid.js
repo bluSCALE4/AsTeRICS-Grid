@@ -1,16 +1,16 @@
-import $ from './externals/jquery.js';
-import {dataService} from "./service/data/dataService";
-import {collectElementService} from "./service/collectElementService";
-import {UndoService} from "./service/data/undoService";
-import {GridData} from "./model/GridData";
-import {templates} from "./templates";
-import {imageUtil} from "./util/imageUtil";
-import {fontUtil} from "./util/fontUtil";
-import {predictionService} from "./service/predictionService";
-import {constants} from "./util/constants";
-import {gridUtil} from "./util/gridUtil";
-import {GridElement} from "./model/GridElement.js";
-import {GridActionNavigate} from "./model/GridActionNavigate.js";
+import $ from "./externals/jquery.js";
+import { dataService } from "./service/data/dataService";
+import { collectElementService } from "./service/collectElementService";
+import { UndoService } from "./service/data/undoService";
+import { GridData } from "./model/GridData";
+import { templates } from "./templates";
+import { imageUtil } from "./util/imageUtil";
+import { fontUtil } from "./util/fontUtil";
+import { predictionService } from "./service/predictionService";
+import { constants } from "./util/constants";
+import { gridUtil } from "./util/gridUtil";
+import { GridElement } from "./model/GridElement.js";
+import { GridActionNavigate } from "./model/GridActionNavigate.js";
 
 function Grid(gridContainerId, gridItemClass, options) {
     var thiz = this;
@@ -37,14 +37,14 @@ function Grid(gridContainerId, gridItemClass, options) {
 
     function init(gridDataParam) {
         _isInitialized = false;
-        _initPromise = new Promise(resolve => {
+        _initPromise = new Promise((resolve) => {
             if (gridDataParam) {
                 initData(options, gridDataParam);
                 initGrid(_gridData).then(() => {
                     resolve();
                 });
             } else {
-                dataService.getGrid(gridId).then(gridData => {
+                dataService.getGrid(gridId).then((gridData) => {
                     initData(options, gridData);
                     initGrid(_gridData).then(() => {
                         resolve();
@@ -60,7 +60,10 @@ function Grid(gridContainerId, gridItemClass, options) {
 
     function initData(options, gridData) {
         if (options) {
-            enableResizing = options.enableResizing != undefined ? options.enableResizing : enableResizing;
+            enableResizing =
+                options.enableResizing != undefined
+                    ? options.enableResizing
+                    : enableResizing;
             dragAndDrop = options.dragAndDrop;
         }
         _gridData = gridData;
@@ -71,52 +74,80 @@ function Grid(gridContainerId, gridItemClass, options) {
 
     async function initGrid(gridDataParam) {
         let promises = [];
-        if (!options.dragAndDrop) { //only add global grid if not in edit mode
-            promises.push(dataService.getGlobalGrid().then(globalGrid => {
-                if (globalGrid) {
-                    let autowidth = true;
-                    let heightPercentage = options.globalGridHeightPercentage ? options.globalGridHeightPercentage / 100 : 0.15;
-                    let heightFactorNormal = 1;
-                    let heightFactorGlobal = 1;
-                    if (globalGrid.getHeight() === 1) {
-                        heightFactorGlobal = (heightPercentage * _gridData.rowCount) / (1 - heightPercentage);
-                        heightFactorNormal = 1 / (_gridData.rowCount * heightPercentage) - (1 / _gridData.rowCount);
-                        heightFactorGlobal = Math.round(heightPercentage * 100);
-                        heightFactorNormal = Math.round((1-heightPercentage) / _gridData.rowCount * 100);
-                    }
-                    let offset = gridUtil.getOffset(globalGrid);
-                    let factorGrid = autowidth ? globalGrid.getWidth() - offset.x : 1;
-                    let factorGlobal = autowidth ? _gridData.getWidthWithBounds() : 1;
-                    globalGrid.gridElements.forEach(gridElement => {
-                        gridElement.width *= factorGlobal;
-                        gridElement.x *= factorGlobal;
-                        if (gridElement.y === 0) {
-                            gridElement.height *= heightFactorGlobal;
+        if (!options.dragAndDrop) {
+            //only add global grid if not in edit mode
+            promises.push(
+                dataService.getGlobalGrid().then((globalGrid) => {
+                    if (globalGrid) {
+                        let autowidth = true;
+                        let heightPercentage =
+                            options.globalGridHeightPercentage
+                                ? options.globalGridHeightPercentage / 100
+                                : 0.15;
+                        let heightFactorNormal = 1;
+                        let heightFactorGlobal = 1;
+                        if (globalGrid.getHeight() === 1) {
+                            heightFactorGlobal =
+                                (heightPercentage * _gridData.rowCount) /
+                                (1 - heightPercentage);
+                            heightFactorNormal =
+                                1 / (_gridData.rowCount * heightPercentage) -
+                                1 / _gridData.rowCount;
+                            heightFactorGlobal = Math.round(
+                                heightPercentage * 100
+                            );
+                            heightFactorNormal = Math.round(
+                                ((1 - heightPercentage) / _gridData.rowCount) *
+                                    100
+                            );
                         }
-                    });
-                    _gridData.gridElements.forEach(gridElement => {
-                        gridElement.width *= factorGrid;
-                        gridElement.x *= factorGrid;
-                        gridElement.x += offset.x * factorGlobal;
-                        gridElement.y = offset.y * heightFactorGlobal + (gridElement.y * heightFactorNormal);
-                        gridElement.height *= heightFactorNormal;
-                    });
-                    _gridData.rowCount *= heightFactorNormal;
-                    _gridData.rowCount += offset.y * heightFactorGlobal;
-                    _gridRows = _gridData.rowCount;
-                    _gridData.gridElements = globalGrid.gridElements.concat(_gridData.gridElements);
-                }
-                _gridData.gridElements = _gridData.gridElements.filter(elem => !elem.hidden);
-                return Promise.resolve();
-            }));
+                        let offset = gridUtil.getOffset(globalGrid);
+                        let factorGrid = autowidth
+                            ? globalGrid.getWidth() - offset.x
+                            : 1;
+                        let factorGlobal = autowidth
+                            ? _gridData.getWidthWithBounds()
+                            : 1;
+                        globalGrid.gridElements.forEach((gridElement) => {
+                            gridElement.width *= factorGlobal;
+                            gridElement.x *= factorGlobal;
+                            if (gridElement.y === 0) {
+                                gridElement.height *= heightFactorGlobal;
+                            }
+                        });
+                        _gridData.gridElements.forEach((gridElement) => {
+                            gridElement.width *= factorGrid;
+                            gridElement.x *= factorGrid;
+                            gridElement.x += offset.x * factorGlobal;
+                            gridElement.y =
+                                offset.y * heightFactorGlobal +
+                                gridElement.y * heightFactorNormal;
+                            gridElement.height *= heightFactorNormal;
+                        });
+                        _gridData.rowCount *= heightFactorNormal;
+                        _gridData.rowCount += offset.y * heightFactorGlobal;
+                        _gridRows = _gridData.rowCount;
+                        _gridData.gridElements = globalGrid.gridElements.concat(
+                            _gridData.gridElements
+                        );
+                    }
+                    _gridData.gridElements = _gridData.gridElements.filter(
+                        (elem) => !elem.hidden
+                    );
+                    return Promise.resolve();
+                })
+            );
         }
 
         await Promise.all(promises);
-        collectElementService.initWithElements(_gridData.gridElements, dragAndDrop);
+        collectElementService.initWithElements(
+            _gridData.gridElements,
+            dragAndDrop
+        );
         await predictionService.initWithElements(_gridData.gridElements);
         $(gridContainerId).empty();
         $(gridContainerId).append(templates.getGridBase(gridDataParam.id));
-        _gridElement = $('#' + gridDataParam.id);
+        _gridElement = $("#" + gridDataParam.id);
 
         let metadata = await dataService.getMetadata();
         for (let gridElement of gridDataParam.gridElements) {
@@ -124,22 +155,26 @@ function Grid(gridContainerId, gridItemClass, options) {
             _gridElement.append(html);
         }
 
-        _gridElement.gridList({
-            lanes: _gridRows,
-            minColumns: _minGridColumns,
-            widthHeightRatio: 1,
-            heightToFontSizeRatio: 0.25,
-            dragAndDrop: dragAndDrop
-        }, {
-            start: notifyLayoutChangeStart,
-            stop: handleLayoutChange
-        });
-        _gridListInstance = _gridElement.data('_gridList');
+        _gridElement.gridList(
+            {
+                lanes: _gridRows,
+                minColumns: _minGridColumns,
+                widthHeightRatio: 1,
+                heightToFontSizeRatio: 0.25,
+                dragAndDrop: dragAndDrop,
+            },
+            {
+                start: notifyLayoutChangeStart,
+                stop: handleLayoutChange,
+            }
+        );
+        _gridListInstance = _gridElement.data("_gridList");
 
-        if (options.dragAndDrop) { // only save something in edit mode
+        if (options.dragAndDrop) {
+            // only save something in edit mode
             if (!gridDataParam.hasSetPositions()) {
-                _gridElement.gridList('resize', _gridRows);
-                thiz.toGridData().then(gridData => {
+                _gridElement.gridList("resize", _gridRows);
+                thiz.toGridData().then((gridData) => {
                     _gridData = gridData;
                     dataService.updateGrid(_gridData.id, _gridData);
                 });
@@ -174,7 +209,7 @@ function Grid(gridContainerId, gridItemClass, options) {
         return {
             //grid: [itemNormWidth, itemNormHeight],
             autoHide: false,
-            handles: 'se',
+            handles: "se",
             disabled: !enableResizing,
             start: notifyLayoutChangeStart,
             stop(event, ui) {
@@ -182,18 +217,24 @@ function Grid(gridContainerId, gridItemClass, options) {
             },
             resize: function (event, ui) {
                 var el = ui.element.parent();
-                el.css('z-index', 1);
-                var w = Math.max(Math.round(ui.element.width() / itemNormWidth), 1);
-                var h = Math.max(Math.round(ui.element.height() / itemNormHeight), 1);
+                el.css("z-index", 1);
+                var w = Math.max(
+                    Math.round(ui.element.width() / itemNormWidth),
+                    1
+                );
+                var h = Math.max(
+                    Math.round(ui.element.height() / itemNormHeight),
+                    1
+                );
                 h = h <= _gridRows ? h : _gridRows;
                 fontUtil.adaptFontSize(el);
-                _gridElement.gridList('resizeItem', ui.element.parent(), {
+                _gridElement.gridList("resizeItem", ui.element.parent(), {
                     w: w,
-                    h: h
+                    h: h,
                 });
-                ui.element.css('height', '');
-                ui.element.css('width', '');
-            }
+                ui.element.css("height", "");
+                ui.element.css("width", "");
+            },
         };
     }
 
@@ -212,10 +253,10 @@ function Grid(gridContainerId, gridItemClass, options) {
     }
 
     function handleLayoutChange() {
-        return new Promise(resolve => {
-            thiz.toGridData().then(currentGridData => {
-                _undoService.updateGrid(currentGridData).then(updated => {
-                    if(updated) {
+        return new Promise((resolve) => {
+            thiz.toGridData().then((currentGridData) => {
+                _undoService.updateGrid(currentGridData).then((updated) => {
+                    if (updated) {
                         _gridData = currentGridData;
                         thiz.autosize();
                         notifyLayoutChangeEnd();
@@ -229,20 +270,32 @@ function Grid(gridContainerId, gridItemClass, options) {
     /**
      * does automatic positioning of elements + resizing horizontal and vertical
      */
-    thiz.autosize = function(timeout) {
+    thiz.autosize = function (timeout) {
         timeout = timeout || 0;
         fontUtil.adaptFontSizeForGridElements();
-        setTimeout(function() {
-            _gridElement.gridList('autosize');
+        setTimeout(function () {
+            _gridElement.gridList("autosize");
             setTimeout(function () {
-                if($('#grid-layout-background-vertical')[0]) {
+                if ($("#grid-layout-background-vertical")[0]) {
                     var sizeX = _gridListInstance._cellWidth;
                     var sizeY = _gridListInstance._cellHeight;
-                    $('#grid-layout-background-vertical').css('margin-left', `${sizeX-5}px`);
-                    $('#grid-layout-background-vertical').css('background-size',  `${sizeX}px ${sizeX}px`);
-                    $('#grid-layout-background-horizontal').css('margin-top', `${sizeY-5}px`);
-                    $('#grid-layout-background-horizontal').css('background-size',  `${sizeY}px ${sizeY}px`);
-                    $('#grid-layout-background-wrapper').show();
+                    $("#grid-layout-background-vertical").css(
+                        "margin-left",
+                        `${sizeX - 5}px`
+                    );
+                    $("#grid-layout-background-vertical").css(
+                        "background-size",
+                        `${sizeX}px ${sizeX}px`
+                    );
+                    $("#grid-layout-background-horizontal").css(
+                        "margin-top",
+                        `${sizeY - 5}px`
+                    );
+                    $("#grid-layout-background-horizontal").css(
+                        "background-size",
+                        `${sizeY}px ${sizeY}px`
+                    );
+                    $("#grid-layout-background-wrapper").show();
                 }
             }, 0);
             setTimeout(function () {
@@ -251,7 +304,7 @@ function Grid(gridContainerId, gridItemClass, options) {
             refreshResizeOptions();
         }, timeout);
     };
-    
+
     thiz.enableElementResizing = function () {
         $(gridItemClass).resizable("enable");
     };
@@ -267,7 +320,7 @@ function Grid(gridContainerId, gridItemClass, options) {
         if (rows && rows > 0) {
             _gridRows = rows;
             _minGridColumns = minColumns;
-            _gridElement.gridList('resize', _gridRows, minColumns);
+            _gridElement.gridList("resize", _gridRows, minColumns);
         }
         handleLayoutChange();
     };
@@ -283,19 +336,27 @@ function Grid(gridContainerId, gridItemClass, options) {
     thiz.removeElement = function (idToRemove) {
         notifyLayoutChangeStart();
 
-        _gridData.gridElements = _gridData.gridElements.filter(el => el.id !== idToRemove);
-        return init(_gridData).then(() => {
-            return handleLayoutChange();
-        }).then(() => {
-            return Promise.resolve(_gridData);
-        });
+        _gridData.gridElements = _gridData.gridElements.filter(
+            (el) => el.id !== idToRemove
+        );
+        return init(_gridData)
+            .then(() => {
+                return handleLayoutChange();
+            })
+            .then(() => {
+                return Promise.resolve(_gridData);
+            });
     };
 
     thiz.duplicateElement = function (id) {
         notifyLayoutChangeStart();
-        let duplicatedElement = _gridData.gridElements.filter(el => el.id === id)[0].duplicate();
+        let duplicatedElement = _gridData.gridElements
+            .filter((el) => el.id === id)[0]
+            .duplicate();
         duplicatedElement.actions = duplicatedElement.actions || [];
-        duplicatedElement.actions = duplicatedElement.actions.filter(action => action.modelName !== GridActionNavigate.getModelName());
+        duplicatedElement.actions = duplicatedElement.actions.filter(
+            (action) => action.modelName !== GridActionNavigate.getModelName()
+        );
         _gridData.gridElements.push(duplicatedElement);
         init(_gridData).then(() => {
             _gridListInstance.resolveCollisions(id);
@@ -321,7 +382,7 @@ function Grid(gridContainerId, gridItemClass, options) {
      */
     thiz.fillGaps = function () {
         notifyLayoutChangeStart();
-        _gridElement.gridList('fillGaps');
+        _gridElement.gridList("fillGaps");
         handleLayoutChange();
     };
 
@@ -342,7 +403,7 @@ function Grid(gridContainerId, gridItemClass, options) {
             seenIds.push(gridElement.id);
         }
         await init(_gridData);
-        _gridElement.gridList('fillGaps');
+        _gridElement.gridList("fillGaps");
         handleLayoutChange();
     };
 
@@ -376,8 +437,8 @@ function Grid(gridContainerId, gridItemClass, options) {
      * reverts the last undo, if there was one
      */
     thiz.updateGridWithUndo = function (gridData) {
-        return new Promise(resolve => {
-            _undoService.updateGrid(gridData).then(updated => {
+        return new Promise((resolve) => {
+            _undoService.updateGrid(gridData).then((updated) => {
                 if (updated) {
                     notifyLayoutChangeStart();
                     init().then(() => {
@@ -412,15 +473,17 @@ function Grid(gridContainerId, gridItemClass, options) {
     };
 
     thiz.toGridData = function () {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             var newElems = [];
 
             //update layout specific data
             _gridData.rowCount = _gridRows;
             _gridData.minColumnCount = _minGridColumns;
             _gridListInstance.items.forEach(function (item) {
-                var currentId = item.$element.attr('data-id');
-                var existingElem = _gridData.gridElements.filter(el => el.id === currentId)[0];
+                var currentId = item.$element.attr("data-id");
+                var existingElem = _gridData.gridElements.filter(
+                    (el) => el.id === currentId
+                )[0];
                 existingElem.x = item.x;
                 existingElem.y = item.y;
                 existingElem.height = item.h;
@@ -436,7 +499,7 @@ function Grid(gridContainerId, gridItemClass, options) {
         return _initPromise;
     };
 
-    thiz.isInitialized = function() {
+    thiz.isInitialized = function () {
         return _isInitialized;
     };
 
@@ -449,4 +512,4 @@ function Grid(gridContainerId, gridItemClass, options) {
     init();
 }
 
-export {Grid};
+export { Grid };

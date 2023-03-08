@@ -1,12 +1,12 @@
-import {Model} from "../externals/objectmodel";
-import {constants} from "../util/constants";
+import { Model } from "../externals/objectmodel";
+import { constants } from "../util/constants";
 
 class NotificationConfig extends Model({
     modelName: String,
     modelVersion: String,
     backupNotifyIntervalDays: [Number],
     lastBackupNotification: [Number],
-    lastBackup: [Number]
+    lastBackup: [Number],
 }) {
     constructor(properties) {
         super(properties);
@@ -22,7 +22,7 @@ NotificationConfig.defaults({
     modelVersion: constants.MODEL_VERSION,
     backupNotifyIntervalDays: 7,
     lastBackupNotification: 0,
-    lastBackup: 0
+    lastBackup: 0,
 });
 
-export {NotificationConfig};
+export { NotificationConfig };

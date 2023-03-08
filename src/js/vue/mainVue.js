@@ -1,21 +1,20 @@
-import $ from '../externals/jquery.js';
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-import {i18nService} from "../service/i18nService";
-import {constants} from "../util/constants";
-import {util} from "../util/util";
-import {inputEventHandler} from "../input/inputEventHandler";
-import {dataService} from "../service/data/dataService";
-import {databaseService} from "../service/data/databaseService";
-import {localStorageService} from "../service/data/localStorageService";
-import {helpService} from "../service/helpService";
-import {Router} from "../router";
-import NotificationBar from "../../vue-components/components/notificationBar.vue"
-import ProgressBarModal from "../../vue-components/modals/progressBarModal.vue"
+import $ from "../externals/jquery.js";
+import Vue from "vue";
+import VueI18n from "vue-i18n";
+import { i18nService } from "../service/i18nService";
+import { constants } from "../util/constants";
+import { util } from "../util/util";
+import { inputEventHandler } from "../input/inputEventHandler";
+import { dataService } from "../service/data/dataService";
+import { databaseService } from "../service/data/databaseService";
+import { localStorageService } from "../service/data/localStorageService";
+import { helpService } from "../service/helpService";
+import { Router } from "../router";
+import NotificationBar from "../../vue-components/components/notificationBar.vue";
+import ProgressBarModal from "../../vue-components/modals/progressBarModal.vue";
 
 let MainVue = {};
 let app = null;
-
 
 MainVue.setViewComponent = function (component, properties) {
     if (app && app.$refs.notificationBar.tooltipOptions.closeOnNavigate) {
@@ -35,7 +34,7 @@ MainVue.setTooltip = function (html, options) {
     return app.$refs.notificationBar.setTooltip(html, options);
 };
 
-MainVue.setTooltipI18n = function(text, options) {
+MainVue.setTooltipI18n = function (text, options) {
     MainVue.setTooltip(text, options);
 };
 
@@ -60,15 +59,15 @@ MainVue.showProgressBar = function (percentage, options) {
     }
     app.showProgressBar = true;
     app.$refs.progressBar.setProgress(percentage, options);
-}
+};
 
 MainVue.init = function () {
     Vue.use(VueI18n);
-    return i18nService.getVueI18n().then(i18n => {
+    return i18nService.getVueI18n().then((i18n) => {
         app = new Vue({
             i18n: i18n,
-            el: '#app',
-            components: {NotificationBar, ProgressBarModal},
+            el: "#app",
+            components: { NotificationBar, ProgressBarModal },
             data() {
                 return {
                     component: null,
@@ -76,13 +75,15 @@ MainVue.init = function () {
                     componentKey: 0,
                     showSidebar: false,
                     currentUser: databaseService.getCurrentUsedDatabase(),
-                    isLocalUser: localStorageService.isSavedLocalUser(databaseService.getCurrentUsedDatabase()),
+                    isLocalUser: localStorageService.isSavedLocalUser(
+                        databaseService.getCurrentUsedDatabase()
+                    ),
                     syncState: dataService.getSyncState(),
                     showProgressBar: false,
                     constants: constants,
                     tooltipHTML: null,
-                    actionLink: null
-                }
+                    actionLink: null,
+                };
             },
             methods: {
                 setComponent(component, properties) {
@@ -100,10 +101,10 @@ MainVue.init = function () {
                     helpService.openHelp();
                 },
                 moreNavigation() {
-                    $.contextMenu('destroy');
+                    $.contextMenu("destroy");
                     setupContextMenu();
-                    $('#moreNavigation').contextMenu();
-                }
+                    $("#moreNavigation").contextMenu();
+                },
             },
             mounted() {
                 let thiz = this;
@@ -119,12 +120,16 @@ MainVue.init = function () {
                         });
                         return;
                     }
-                    dataService.getMetadata().then(metadata => {
+                    dataService.getMetadata().then((metadata) => {
                         if (!metadata.locked && !metadata.fullscreen) {
                             thiz.showSidebar = true;
                             this.$nextTick(() => {
-                                $(document).trigger(constants.EVENT_SIDEBAR_OPENED);
-                                $(document).trigger(constants.EVENT_GRID_RESIZE);
+                                $(document).trigger(
+                                    constants.EVENT_SIDEBAR_OPENED
+                                );
+                                $(document).trigger(
+                                    constants.EVENT_GRID_RESIZE
+                                );
                             });
                         }
                     });
@@ -137,20 +142,31 @@ MainVue.init = function () {
                 });
                 $(document).on(constants.EVENT_DB_INITIALIZED, () => {
                     thiz.currentUser = databaseService.getCurrentUsedDatabase();
-                    thiz.isLocalUser = localStorageService.isSavedLocalUser(thiz.currentUser);
+                    thiz.isLocalUser = localStorageService.isSavedLocalUser(
+                        thiz.currentUser
+                    );
                 });
                 $(document).on(constants.EVENT_DB_CLOSED, () => {
                     thiz.currentUser = databaseService.getCurrentUsedDatabase();
-                    thiz.isLocalUser = localStorageService.isSavedLocalUser(thiz.currentUser);
+                    thiz.isLocalUser = localStorageService.isSavedLocalUser(
+                        thiz.currentUser
+                    );
                 });
-                $(document).on(constants.EVENT_DB_SYNC_STATE_CHANGE, (event, syncState) => {
-                    thiz.syncState = syncState;
-                });
+                $(document).on(
+                    constants.EVENT_DB_SYNC_STATE_CHANGE,
+                    (event, syncState) => {
+                        thiz.syncState = syncState;
+                    }
+                );
                 thiz.syncState = dataService.getSyncState();
-                window.addEventListener('resize', () => {
-                    util.debounce(function () {
-                        $(document).trigger(constants.EVENT_GRID_RESIZE);
-                    }, 300, constants.EVENT_GRID_RESIZE);
+                window.addEventListener("resize", () => {
+                    util.debounce(
+                        function () {
+                            $(document).trigger(constants.EVENT_GRID_RESIZE);
+                        },
+                        300,
+                        constants.EVENT_GRID_RESIZE
+                    );
                 });
                 inputEventHandler.global
                     .onSwipedDown(openSidebarIfFullscreen)
@@ -160,11 +176,14 @@ MainVue.init = function () {
                 thiz.openSidebar();
 
                 function openSidebarIfFullscreen() {
-                    if (thiz.showSidebar || !databaseService.getCurrentUsedDatabase()) {
+                    if (
+                        thiz.showSidebar ||
+                        !databaseService.getCurrentUsedDatabase()
+                    ) {
                         return;
                     }
                     util.closeFullscreen();
-                    dataService.getMetadata().then(metadata => {
+                    dataService.getMetadata().then((metadata) => {
                         if (metadata.fullscreen) {
                             metadata.fullscreen = false;
                             dataService.saveMetadata(metadata).then(() => {
@@ -173,29 +192,38 @@ MainVue.init = function () {
                         }
                     });
                 }
-            }
+            },
         });
         return Promise.resolve();
     });
 };
 
 function setupContextMenu() {
-    let CONTEXT_ADD_ONLINE = 'CONTEXT_ADD_ONLINE';
-    let CONTEXT_ADD_OFFLINE = 'CONTEXT_ADD_OFFLINE';
-    let CONTEXT_ABOUT = 'CONTEXT_ABOUT';
+    let CONTEXT_ADD_ONLINE = "CONTEXT_ADD_ONLINE";
+    let CONTEXT_ADD_OFFLINE = "CONTEXT_ADD_OFFLINE";
+    let CONTEXT_ABOUT = "CONTEXT_ABOUT";
     let menuItems = {
-        CONTEXT_ADD_ONLINE: {name: i18nService.t('addOnlineUser'), icon: "fas fa-user-plus"},
-        CONTEXT_ADD_OFFLINE: {name: i18nService.t('addOfflineUser'), icon: "fas fa-user-plus"},
-        CONTEXT_ABOUT: {name: i18nService.t('aboutAstericsGrid'), icon: "fas fa-info-circle"},
+        CONTEXT_ADD_ONLINE: {
+            name: i18nService.t("addOnlineUser"),
+            icon: "fas fa-user-plus",
+        },
+        CONTEXT_ADD_OFFLINE: {
+            name: i18nService.t("addOfflineUser"),
+            icon: "fas fa-user-plus",
+        },
+        CONTEXT_ABOUT: {
+            name: i18nService.t("aboutAstericsGrid"),
+            icon: "fas fa-info-circle",
+        },
     };
     $.contextMenu({
-        selector: '#moreNavigation',
+        selector: "#moreNavigation",
         callback: function (key, options) {
             handleContextMenu(key);
         },
         items: menuItems,
-        trigger: 'left',
-        zIndex: 10
+        trigger: "left",
+        zIndex: 10,
     });
 
     function handleContextMenu(key) {
@@ -213,4 +241,4 @@ function setupContextMenu() {
     }
 }
 
-export {MainVue}
+export { MainVue };

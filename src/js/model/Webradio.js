@@ -1,6 +1,6 @@
-import {modelUtil} from "../util/modelUtil";
-import {constants} from "../util/constants";
-import {Model} from "../externals/objectmodel";
+import { modelUtil } from "../util/modelUtil";
+import { constants } from "../util/constants";
+import { Model } from "../externals/objectmodel";
 
 class Webradio extends Model({
     id: String,
@@ -10,12 +10,12 @@ class Webradio extends Model({
     radioUUID: [String],
     radioName: [String],
     radioUrl: [String],
-    faviconUrl: [String]
+    faviconUrl: [String],
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(properties, elementToCopy, Webradio);
         super(properties);
-        this.id = this.id || modelUtil.generateId('webradio')
+        this.id = this.id || modelUtil.generateId("webradio");
     }
 
     static getModelName() {
@@ -26,7 +26,7 @@ class Webradio extends Model({
 Webradio.defaults({
     id: "", //will be replaced by constructor
     modelName: Webradio.getModelName(),
-    modelVersion: constants.MODEL_VERSION
+    modelVersion: constants.MODEL_VERSION,
 });
 
-export {Webradio};
+export { Webradio };

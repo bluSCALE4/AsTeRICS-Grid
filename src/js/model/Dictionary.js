@@ -1,6 +1,6 @@
-import {modelUtil} from "../util/modelUtil";
-import {constants} from "../util/constants";
-import {Model} from "../externals/objectmodel";
+import { modelUtil } from "../util/modelUtil";
+import { constants } from "../util/constants";
+import { Model } from "../externals/objectmodel";
 
 class Dictionary extends Model({
     id: String,
@@ -8,10 +8,14 @@ class Dictionary extends Model({
     modelVersion: String,
     dictionaryKey: String,
     data: [String], //JSON data
-    isDefault: [Boolean]
+    isDefault: [Boolean],
 }) {
     constructor(properties, elementToCopy) {
-        properties = modelUtil.setDefaults(properties, elementToCopy, Dictionary);
+        properties = modelUtil.setDefaults(
+            properties,
+            elementToCopy,
+            Dictionary
+        );
         super(properties);
         this.id = this.id || modelUtil.generateId(Dictionary.getIdPrefix());
     }
@@ -20,8 +24,8 @@ class Dictionary extends Model({
         let newDict = new Dictionary(this);
         delete newDict._id;
         delete newDict._rev;
-        newDict.id = modelUtil.generateId('dictionary');
-        newDict.dictionaryKey = this.dictionaryKey + ' (Copy)';
+        newDict.id = modelUtil.generateId("dictionary");
+        newDict.dictionaryKey = this.dictionaryKey + " (Copy)";
         return newDict;
     }
 
@@ -30,7 +34,7 @@ class Dictionary extends Model({
     }
 
     static getIdPrefix() {
-        return 'dictionary';
+        return "dictionary";
     }
 }
 
@@ -38,7 +42,7 @@ Dictionary.defaults({
     id: "", //will be replaced by constructor
     modelName: Dictionary.getModelName(),
     modelVersion: constants.MODEL_VERSION,
-    data: JSON.stringify({})
+    data: JSON.stringify({}),
 });
 
-export {Dictionary};
+export { Dictionary };

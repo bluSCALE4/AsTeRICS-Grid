@@ -1,7 +1,8 @@
-import {constants} from "../../util/constants";
-import {MetaData} from "../../model/MetaData";
+import { constants } from "../../util/constants";
+import { MetaData } from "../../model/MetaData";
 
-var errorMsg = 'could not access local storage, maybe disabled by user? Error: ';
+var errorMsg =
+    "could not access local storage, maybe disabled by user? Error: ";
 var storage = null;
 let USER_PASSWORDS_KEY = "USER_PASSWORDS_KEY";
 let USER_MODELVERSION_KEY = "USER_MODELVERSION_KEY";
@@ -16,11 +17,11 @@ let USED_LOCALES_KEY = "AG_USED_LOCALES_KEY";
 let YT_STATE_KEY = "AG_YT_STATE_KEY";
 let CURRENT_VERSION_KEY = "AG_CURRENT_VERSION_KEY";
 
-if (typeof (Storage) !== "undefined") {
+if (typeof Storage !== "undefined") {
     try {
         var storage = window.localStorage;
     } catch (e) {
-        log.error(errorMsg + e)
+        log.error(errorMsg + e);
     }
 }
 
@@ -30,7 +31,7 @@ var localStorageService = {
             try {
                 return storage.setItem(key, value);
             } catch (e) {
-                log.error(errorMsg + e)
+                log.error(errorMsg + e);
             }
         }
     },
@@ -39,7 +40,7 @@ var localStorageService = {
             try {
                 return storage.getItem(key);
             } catch (e) {
-                log.error(errorMsg + e)
+                log.error(errorMsg + e);
             }
         }
     },
@@ -54,7 +55,7 @@ var localStorageService = {
             try {
                 return storage.removeItem(key);
             } catch (e) {
-                log.error(errorMsg + e)
+                log.error(errorMsg + e);
             }
         }
     },
@@ -75,7 +76,7 @@ var localStorageService = {
      */
     saveLocalUser(username) {
         let object = getSaveObject(USER_PASSWORDS_KEY);
-        object[username] = '';
+        object[username] = "";
         localStorageService.save(USER_PASSWORDS_KEY, JSON.stringify(object));
     },
     /**
@@ -85,14 +86,14 @@ var localStorageService = {
      */
     isSavedLocalUser(username) {
         let object = getSaveObject(USER_PASSWORDS_KEY);
-        return object[username] === '';
+        return object[username] === "";
     },
     /**
      * checks if the last active user is a local user (not synced with cloud)
      */
     isLastActiveUserLocal() {
         let object = getSaveObject(USER_PASSWORDS_KEY);
-        return object[localStorageService.getLastActiveUser()] === '';
+        return object[localStorageService.getLastActiveUser()] === "";
     },
     /**
      * saves a given user password
@@ -115,7 +116,7 @@ var localStorageService = {
         localStorageService.save(USER_PASSWORDS_KEY, JSON.stringify(object));
         let autologinUser = localStorageService.getAutologinUser();
         if (autologinUser === username) {
-            localStorageService.setAutologinUser('');
+            localStorageService.setAutologinUser("");
         }
     },
     /**
@@ -128,7 +129,7 @@ var localStorageService = {
         let onlineUsers = localStorageService.getSavedOnlineUsers();
         let allUsers = onlineUsers.concat(localUsers);
         if (loggedInUser && allUsers.includes(loggedInUser)) {
-            allUsers = allUsers.filter(user => user !== loggedInUser);
+            allUsers = allUsers.filter((user) => user !== loggedInUser);
             allUsers.unshift(loggedInUser);
         }
         return allUsers;
@@ -139,15 +140,17 @@ var localStorageService = {
     getSavedLocalUsers() {
         let object = getSaveObject(USER_PASSWORDS_KEY);
         let allUsers = Object.keys(object) || [];
-        return allUsers.filter(username => object[username] === '').sort((a, b) => {
-            if (a === constants.LOCAL_DEMO_USERNAME) {
-                return 1;
-            }
-            if (b === constants.LOCAL_DEMO_USERNAME) {
-                return -1;
-            }
-            return a.localeCompare(b);
-        });
+        return allUsers
+            .filter((username) => object[username] === "")
+            .sort((a, b) => {
+                if (a === constants.LOCAL_DEMO_USERNAME) {
+                    return 1;
+                }
+                if (b === constants.LOCAL_DEMO_USERNAME) {
+                    return -1;
+                }
+                return a.localeCompare(b);
+            });
     },
     /**
      * returns all saved online users as a string list
@@ -155,7 +158,7 @@ var localStorageService = {
     getSavedOnlineUsers() {
         let object = getSaveObject(USER_PASSWORDS_KEY);
         let allUsers = Object.keys(object) || [];
-        return allUsers.filter(username => object[username] !== '').sort();
+        return allUsers.filter((username) => object[username] !== "").sort();
     },
     /**
      * saves the last active user by username
@@ -183,8 +186,7 @@ var localStorageService = {
      */
     getAutologinUser() {
         return localStorageService.get(AUTOLOGIN_USER_KEY);
-    }
-    ,
+    },
     /**
      * saves a name of the database that should be marked as "completely synced"
      * @param databaseName the name of the database to save
@@ -212,7 +214,7 @@ var localStorageService = {
      */
     unmarkSyncedDatabase(databaseName) {
         let list = getSyncedDbsList();
-        list = list.filter(name => name !== databaseName);
+        list = list.filter((name) => name !== databaseName);
         localStorageService.save(SYNCED_DBS_LIST_KEY, JSON.stringify(list));
     },
     /**
@@ -223,7 +225,9 @@ var localStorageService = {
     getUserMajorModelVersion(user) {
         let object = getSaveObject(USER_MODELVERSION_KEY);
         let modelVersionString = object[user];
-        let majorNumber = !modelVersionString ? 1 : parseInt(JSON.parse(object[user]).major);
+        let majorNumber = !modelVersionString
+            ? 1
+            : parseInt(JSON.parse(object[user]).major);
         return majorNumber;
     },
     /**
@@ -239,7 +243,10 @@ var localStorageService = {
         if (savedVersion < newVersion) {
             let object = getSaveObject(USER_MODELVERSION_KEY);
             object[user] = modelVersionString;
-            localStorageService.save(USER_MODELVERSION_KEY, JSON.stringify(object));
+            localStorageService.save(
+                USER_MODELVERSION_KEY,
+                JSON.stringify(object)
+            );
         }
     },
     shouldSyncNavigation() {
@@ -257,18 +264,28 @@ var localStorageService = {
         localStorageService.save(UNLOCK_PASSCODE_KEY, JSON.stringify(value));
     },
     saveLocalMetadata(metadata) {
-        let user = localStorageService.getAutologinUser() || localStorageService.getLastActiveUser();
+        let user =
+            localStorageService.getAutologinUser() ||
+            localStorageService.getLastActiveUser();
         let object = getSaveObject(LOCAL_METADATA_KEY);
         object[user] = metadata;
-        return localStorageService.save(LOCAL_METADATA_KEY, JSON.stringify(object));
+        return localStorageService.save(
+            LOCAL_METADATA_KEY,
+            JSON.stringify(object)
+        );
     },
     getLocalMetadata() {
-        let user = localStorageService.getAutologinUser() || localStorageService.getLastActiveUser();
+        let user =
+            localStorageService.getAutologinUser() ||
+            localStorageService.getLastActiveUser();
         let object = getSaveObject(LOCAL_METADATA_KEY);
         return object[user];
     },
     saveLastGridDimensions(dimensions) {
-        return localStorageService.save(GRID_DIMENSIONS_KEY, JSON.stringify(dimensions));
+        return localStorageService.save(
+            GRID_DIMENSIONS_KEY,
+            JSON.stringify(dimensions)
+        );
     },
     getLastGridDimensions() {
         let json = localStorageService.get(GRID_DIMENSIONS_KEY);
@@ -289,27 +306,38 @@ var localStorageService = {
         if (full) {
             return json ? JSON.parse(json) : null;
         }
-        return json ? JSON.parse(json)[localStorageService.getAutologinUser()] : null;
+        return json
+            ? JSON.parse(json)[localStorageService.getAutologinUser()]
+            : null;
     },
     saveYTState(state) {
         let currentFullState = localStorageService.getYTState(true) || {};
         currentFullState[localStorageService.getAutologinUser()] = state;
-        return localStorageService.save(YT_STATE_KEY, JSON.stringify(currentFullState));
+        return localStorageService.save(
+            YT_STATE_KEY,
+            JSON.stringify(currentFullState)
+        );
     },
     getCurrentAppVersion() {
         return localStorageService.get(CURRENT_VERSION_KEY);
     },
     setCurrentAppVersion(versionString) {
         localStorageService.save(CURRENT_VERSION_KEY, versionString);
-    }
+    },
 };
 
 function getSaveObject(key) {
     let objectString = localStorageService.get(key);
     let object = JSON.parse(objectString);
-    let isObject = (object instanceof Object);
-    if (key === LOCAL_METADATA_KEY && object && object.modelName === MetaData.getModelName()) {
-        let user = localStorageService.getAutologinUser() || localStorageService.getLastActiveUser();
+    let isObject = object instanceof Object;
+    if (
+        key === LOCAL_METADATA_KEY &&
+        object &&
+        object.modelName === MetaData.getModelName()
+    ) {
+        let user =
+            localStorageService.getAutologinUser() ||
+            localStorageService.getLastActiveUser();
         let value = {};
         value[user] = object;
         localStorageService.save(key, JSON.stringify(value));
@@ -331,5 +359,4 @@ function getSyncedDbsList() {
     return JSON.parse(syncedDbsString);
 }
 
-
-export {localStorageService};
+export { localStorageService };

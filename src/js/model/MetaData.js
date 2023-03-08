@@ -1,11 +1,11 @@
-import {modelUtil} from "../util/modelUtil";
-import {InputConfig} from "./InputConfig";
-import {constants} from "../util/constants";
-import {Model} from "../externals/objectmodel";
-import {ColorConfig} from "./ColorConfig.js";
-import {TextConfig} from "./TextConfig.js";
-import {LocaleConfig} from "./LocaleConfig.js";
-import {NotificationConfig} from "./NotificationConfig.js";
+import { modelUtil } from "../util/modelUtil";
+import { InputConfig } from "./InputConfig";
+import { constants } from "../util/constants";
+import { Model } from "../externals/objectmodel";
+import { ColorConfig } from "./ColorConfig.js";
+import { TextConfig } from "./TextConfig.js";
+import { LocaleConfig } from "./LocaleConfig.js";
+import { NotificationConfig } from "./NotificationConfig.js";
 
 class MetaData extends Model({
     id: String,
@@ -22,16 +22,18 @@ class MetaData extends Model({
     colorConfig: [ColorConfig],
     textConfig: [TextConfig],
     localeConfig: [LocaleConfig],
-    notificationConfig: [NotificationConfig]
+    notificationConfig: [NotificationConfig],
 }) {
     constructor(properties, elementToCopy) {
-        properties = modelUtil.setDefaults(properties, elementToCopy, MetaData) || {};
+        properties =
+            modelUtil.setDefaults(properties, elementToCopy, MetaData) || {};
         super(properties);
         this.id = this.id || modelUtil.generateId(MetaData.getIdPrefix());
         this.colorConfig = properties.colorConfig || new ColorConfig();
         this.textConfig = properties.textConfig || new TextConfig();
         this.localeConfig = properties.localeConfig || new LocaleConfig();
-        this.notificationConfig = properties.notificationConfig || new NotificationConfig();
+        this.notificationConfig =
+            properties.notificationConfig || new NotificationConfig();
     }
 
     isEqual(otherMetadata) {
@@ -46,7 +48,12 @@ class MetaData extends Model({
 
     static getActiveColorScheme(metadata) {
         metadata = metadata || new MetaData();
-        return constants.DEFAULT_COLOR_SCHEMES.filter(scheme => scheme.name === metadata.colorConfig.activeColorScheme)[0] || constants.DEFAULT_COLOR_SCHEMES[0];
+        return (
+            constants.DEFAULT_COLOR_SCHEMES.filter(
+                (scheme) =>
+                    scheme.name === metadata.colorConfig.activeColorScheme
+            )[0] || constants.DEFAULT_COLOR_SCHEMES[0]
+        );
     }
 
     static getElementColor(gridElement, metadata) {
@@ -55,8 +62,15 @@ class MetaData extends Model({
         }
         let colorScheme = MetaData.getActiveColorScheme(metadata);
         let index = colorScheme.categories.indexOf(gridElement.colorCategory);
-        if (!metadata.colorConfig.colorSchemesActivated || !gridElement.colorCategory || index === -1) {
-            return gridElement.backgroundColor || metadata.colorConfig.elementBackgroundColor;
+        if (
+            !metadata.colorConfig.colorSchemesActivated ||
+            !gridElement.colorCategory ||
+            index === -1
+        ) {
+            return (
+                gridElement.backgroundColor ||
+                metadata.colorConfig.elementBackgroundColor
+            );
         }
         return colorScheme.colors[index];
     }
@@ -66,7 +80,7 @@ class MetaData extends Model({
     }
 
     static getIdPrefix() {
-        return 'meta-data';
+        return "meta-data";
     }
 }
 
@@ -79,7 +93,7 @@ MetaData.defaults({
     hashCodes: {},
     inputConfig: new InputConfig(),
     globalGridActive: false,
-    globalGridHeightPercentage: 17
+    globalGridHeightPercentage: 17,
 });
 
-export {MetaData};
+export { MetaData };

@@ -1,13 +1,13 @@
-import {modelUtil} from "../util/modelUtil";
-import {GridElement} from "./GridElement";
-import {AdditionalGridFile} from "./AdditionalGridFile";
-import {GridActionARE} from "./GridActionARE";
-import {constants} from "../util/constants";
-import {Model} from "../externals/objectmodel";
-import {Webradio} from "./Webradio";
-import {gridUtil} from "../util/gridUtil";
-import {localStorageService} from "../service/data/localStorageService";
-import {encryptionService} from "../service/data/encryptionService";
+import { modelUtil } from "../util/modelUtil";
+import { GridElement } from "./GridElement";
+import { AdditionalGridFile } from "./AdditionalGridFile";
+import { GridActionARE } from "./GridActionARE";
+import { constants } from "../util/constants";
+import { Model } from "../externals/objectmodel";
+import { Webradio } from "./Webradio";
+import { gridUtil } from "../util/gridUtil";
+import { localStorageService } from "../service/data/localStorageService";
+import { encryptionService } from "../service/data/encryptionService";
 
 class GridData extends Model({
     id: String,
@@ -21,51 +21,73 @@ class GridData extends Model({
     gridElements: Model.Array(GridElement),
     additionalFiles: [Model.Array(AdditionalGridFile)],
     webRadios: [Model.Array(Webradio)],
-    thumbnail: [Object] // map with 2 properties: [data, hash], where "data" is base64 Screenshot data and "hash" is the hash of the grid when the screenshot was made
+    thumbnail: [Object], // map with 2 properties: [data, hash], where "data" is base64 Screenshot data and "hash" is the hash of the grid when the screenshot was made
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(properties, elementToCopy, GridData);
         if (properties) {
-            properties.id = properties.id ? properties.id : modelUtil.generateId(GridData.getIdPrefix());
+            properties.id = properties.id
+                ? properties.id
+                : modelUtil.generateId(GridData.getIdPrefix());
         }
         super(properties);
-        this.minColumnCount = properties.minColumnCount || this.getWidth() || localStorageService.getLastGridDimensions().minColumnCount || 4;
-        this.rowCount = properties.rowCount || this.getHeight() || localStorageService.getLastGridDimensions().rowCount || 3;
-        this.id = this.id || modelUtil.generateId('grid-data');
+        this.minColumnCount =
+            properties.minColumnCount ||
+            this.getWidth() ||
+            localStorageService.getLastGridDimensions().minColumnCount ||
+            4;
+        this.rowCount =
+            properties.rowCount ||
+            this.getHeight() ||
+            localStorageService.getLastGridDimensions().rowCount ||
+            3;
+        this.id = this.id || modelUtil.generateId("grid-data");
     }
 
     hasSetPositions() {
-        return this.gridElements.every(elm => elm.hasSetPosition());
+        return this.gridElements.every((elm) => elm.hasSetPosition());
     }
 
     getHash() {
         let string = "";
-        this.gridElements.forEach(e => {
+        this.gridElements.forEach((e) => {
             string += JSON.stringify(e.label) + e.x + e.y;
             if (e.image && (e.image.data || e.image.url)) {
                 let temp = e.image.data || e.image.url;
-                string += temp.substring(temp.length > 30 ? temp.length - 30 : 0);
+                string += temp.substring(
+                    temp.length > 30 ? temp.length - 30 : 0
+                );
             }
         });
         return encryptionService.getStringHash(string);
     }
 
     hasOutdatedThumbnail() {
-        return !this.thumbnail || !this.thumbnail.data || this.thumbnail.hash !== this.getHash();
+        return (
+            !this.thumbnail ||
+            !this.thumbnail.data ||
+            this.thumbnail.hash !== this.getHash()
+        );
     }
 
     getWidth() {
         if (this.gridElements.length === 0) {
             return 0;
         }
-        return Math.max.apply(null, this.gridElements.map(el => el.x + el.width));
+        return Math.max.apply(
+            null,
+            this.gridElements.map((el) => el.x + el.width)
+        );
     }
 
     getHeight() {
         if (this.gridElements.length === 0) {
             return 0;
         }
-        return Math.max.apply(null, this.gridElements.map(el => el.y + el.height));
+        return Math.max.apply(
+            null,
+            this.gridElements.map((el) => el.y + el.height)
+        );
     }
 
     getWidthWithBounds() {
@@ -103,8 +125,8 @@ class GridData extends Model({
         if (forBigElement) {
             return {
                 x: maxX,
-                y: 0
-            }
+                y: 0,
+            };
         }
 
         let freeCoordinates = gridUtil.getFreeCoordinates(this);
@@ -113,8 +135,8 @@ class GridData extends Model({
         }
         return {
             x: maxX,
-            y: 0
-        }
+            y: 0,
+        };
     }
 
     /**
@@ -127,8 +149,8 @@ class GridData extends Model({
         let xy = this.getNewXYPos();
         options = Object.assign(options, {
             x: xy.x,
-            y: xy.y
-        })
+            y: xy.y,
+        });
         return new GridElement(options);
     }
 
@@ -156,21 +178,25 @@ class GridData extends Model({
             return this.gridElements[0].id;
         }
 
-        var sortedElements = JSON.parse(JSON.stringify(this.gridElements)).sort((a, b) => {
-            if (a.y !== b.y) return a.y - b.y;
-            return a.x - b.x;
-        });
-        sortedElements = sortedElements.filter(el => el.type === GridElement.ELEMENT_TYPE_NORMAL);
-        var ids = sortedElements.map(el => el.id);
+        var sortedElements = JSON.parse(JSON.stringify(this.gridElements)).sort(
+            (a, b) => {
+                if (a.y !== b.y) return a.y - b.y;
+                return a.x - b.x;
+            }
+        );
+        sortedElements = sortedElements.filter(
+            (el) => el.type === GridElement.ELEMENT_TYPE_NORMAL
+        );
+        var ids = sortedElements.map((el) => el.id);
         var index = ids.indexOf(elementId);
         if (index === -1) {
             return ids[0];
         }
         var increment = invertDirection ? -1 : 1;
         var newIndex = index + increment;
-        newIndex = (newIndex > ids.length - 1) ? 0 : newIndex;
-        newIndex = (newIndex < 0) ? ids.length - 1 : newIndex;
-        return ids[newIndex]
+        newIndex = newIndex > ids.length - 1 ? 0 : newIndex;
+        newIndex = newIndex < 0 ? ids.length - 1 : newIndex;
+        return ids[newIndex];
     }
 
     /**
@@ -183,7 +209,9 @@ class GridData extends Model({
     }
 
     getAdditionalFile(fileName) {
-        var filteredFiles = this.additionalFiles.filter(f => f.fileName === fileName);
+        var filteredFiles = this.additionalFiles.filter(
+            (f) => f.fileName === fileName
+        );
         return filteredFiles.length > 0 ? filteredFiles[0] : null;
     }
 
@@ -195,7 +223,9 @@ class GridData extends Model({
     getAREModel() {
         let areAction = this.getAREFirstAction();
         if (areAction) {
-            let filteredFiles = this.additionalFiles.filter(f => f.fileName === areAction.areModelGridFileName);
+            let filteredFiles = this.additionalFiles.filter(
+                (f) => f.fileName === areAction.areModelGridFileName
+            );
             return filteredFiles[0];
         }
         return null;
@@ -220,10 +250,12 @@ class GridData extends Model({
      */
     getAREFirstAction() {
         let allActions = [];
-        this.gridElements.forEach(element => {
+        this.gridElements.forEach((element) => {
             allActions = allActions.concat(element.actions);
         });
-        return allActions.filter(a => a.modelName === GridActionARE.getModelName())[0];
+        return allActions.filter(
+            (a) => a.modelName === GridActionARE.getModelName()
+        )[0];
     }
 
     getAREURL() {
@@ -235,9 +267,9 @@ class GridData extends Model({
         let newGrid = new GridData(this);
         delete newGrid._id;
         delete newGrid._rev;
-        newGrid.id = modelUtil.generateId('grid-data');
-        Object.keys(this.label).forEach(key => {
-            newGrid.label[key] = this.label[key] + ' (Copy)';
+        newGrid.id = modelUtil.generateId("grid-data");
+        Object.keys(this.label).forEach((key) => {
+            newGrid.label[key] = this.label[key] + " (Copy)";
         });
         return newGrid;
     }
@@ -247,7 +279,7 @@ class GridData extends Model({
     }
 
     static getIdPrefix() {
-        return 'grid-data';
+        return "grid-data";
     }
 }
 
@@ -259,7 +291,7 @@ GridData.defaults({
     additionalFiles: [],
     webRadios: [],
     label: {},
-    lastUpdateTime: new Date().getTime()
+    lastUpdateTime: new Date().getTime(),
 });
 
-export {GridData};
+export { GridData };
