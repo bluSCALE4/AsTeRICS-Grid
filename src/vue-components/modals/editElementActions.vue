@@ -11,20 +11,20 @@
             <h2 for="actionList" class="twelve columns" style="margin-top: 1em; font-size: 1.2em">{{ $t('currentActions') }}</h2>
         </div>
         <ul id="actionList">
-                            <span v-show="gridElement.actions.length == 0" class="srow">
-                                <i18n path="noActionsDefinedClickOnAdd" tag="span">
-                                    <template v-slot:addAction>
-                                        <i class="fas fa-plus"/> <span class="hide-mobile">{{ $t('addAction') }}</span>
-                                    </template>
-                                </i18n>
-                            </span>
+            <span v-show="gridElement.actions.length == 0" class="srow">
+                <i18n path="noActionsDefinedClickOnAdd" tag="span">
+                    <template v-slot:addAction>
+                        <i class="fas fa-plus"/> <span class="hide-mobile">{{ $t('addAction') }}</span>
+                    </template>
+                </i18n>
+            </span>
             <li v-for="action in gridElement.actions" class="srow">
                 <div class="srow" style="margin-top: 0">
                     <div class="four columns" style="margin-bottom: 1em">
                         <span v-show="editActionId !== action.id">{{action.modelName | translate}}</span>
                         <span v-show="editActionId === action.id">
-                                            <b>{{action.modelName | translate}}</b> <a class="black" href="javascript:;" @click="openHelp()"><i class="fas fa-question-circle"></i></a>
-                                        </span>
+                            <b>{{action.modelName | translate}}</b> <a class="black" href="javascript:;" @click="openHelp()"><i class="fas fa-question-circle"></i></a>
+                        </span>
                     </div>
                     <div class="eight columns actionbtns">
                         <button @click="editAction(action)"><i class="far fa-edit"/>

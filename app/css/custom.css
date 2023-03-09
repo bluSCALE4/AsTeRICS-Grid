@@ -94,6 +94,11 @@ nav h2 {
     font-size: 1.2em;
 }
 
+.hg-sidebar a.linkAsButton {
+    box-sizing: border-box;
+    text-decoration: none;
+}
+.hg-sidebar a.linkAsButton,
 .hg-sidebar button {
     padding: 0.5vh 1vh;
     margin: 0;
@@ -110,7 +115,8 @@ nav li button::-moz-focus-inner {
     border: 0;
 }
 
-nav li button span {
+nav li button span,
+nav li a.linkAsButton span {
     margin-left: 0.5em;
 }
 
@@ -123,23 +129,17 @@ nav ul {
 }
 
 nav li:hover button, nav li button:focus {
-    background-color: #DBF4FF; !important;
+    background-color: #DBF4FF !important;
 }
 
-nav li a:focus, nav li a:hover {
-    outline: none;
-    color: #266697;
-}
-
-nav button.selected {
-    background-color: #DBF4FF; !important;
+nav a.linkAsButton.selected {
+    background-color: #DBF4FF !important;
     border: 3px solid lightblue;
     text-decoration: underline;
     outline: none;
 }
 
 nav #helpButton:focus {
-    border: none;
     outline: none;
     background-color: transparent;
 }

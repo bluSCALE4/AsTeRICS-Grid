@@ -115,6 +115,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
+.linkAsButton,
 .file-input {
     display: inline-block;
     padding: 0 30px;
@@ -137,6 +138,10 @@ input[type="button"],
     transition: background-color .3s;
 }
 
+a.linkAsButton:focus,
+a.linkAsButton:hover {
+    border: 3px solid lightblue;
+}
 .button:hover,
 button:hover,
 input[type="submit"]:hover,

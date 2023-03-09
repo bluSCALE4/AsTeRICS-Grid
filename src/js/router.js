@@ -42,7 +42,7 @@ let _currentVueApp = null;
 let _gridHistory = [];
 let _locked = false;
 
-Router.init = function (injectIdParam, initialHash) {
+Router.init = function(injectIdParam, initialHash) {
     if (!routingEndabled) {
         return;
     }
@@ -50,15 +50,15 @@ Router.init = function (injectIdParam, initialHash) {
     injectId = injectIdParam;
     navigoInstance = new Navigo(null, true);
     navigoInstance.on({
-        main: function () {
+        main: function() {
             helpService.setHelpLocation("02_navigation", "#main-view");
             toMainInternal();
         },
-        "grids/": function () {
+        "grids/": function() {
             helpService.setHelpLocation("02_navigation", "#manage-grids-view");
             loadVueView(AllGridsView);
         },
-        "grid/:gridId": function (params, query) {
+        "grid/:gridId": function(params, query) {
             log.debug("route grid with ID: " + params.gridId);
             let queryParams = new URLSearchParams(query);
             let passParams = Object.fromEntries(queryParams);
@@ -66,12 +66,12 @@ Router.init = function (injectIdParam, initialHash) {
             helpService.setHelpLocation("02_navigation", "#main-view");
             loadVueView(GridView, passParams, "#main");
         },
-        "grid/name/:gridName": function (params) {
+        "grid/name/:gridName": function(params) {
             log.debug("route grid with Name: " + params.gridName);
             helpService.setHelpLocation("02_navigation", "#main-view");
-            dataService.getGrids().then((result) => {
+            dataService.getGrids().then(result => {
                 let gridsWithName = result.filter(
-                    (grid) =>
+                    grid =>
                         i18nService.getTranslation(grid.label) ===
                         params.gridName
                 );
@@ -90,54 +90,54 @@ Router.init = function (injectIdParam, initialHash) {
                 }
             });
         },
-        "grid/edit/:gridId": function (params) {
+        "grid/edit/:gridId": function(params) {
             log.debug("route edit grid with ID: " + params.gridId);
             helpService.setHelpLocation("02_navigation", "#edit-view");
             loadVueView(GridEditView, {
                 gridId: params.gridId,
             });
         },
-        login: function () {
+        login: function() {
             helpService.setHelpLocation("02_navigation", "#change-user-view");
             loadVueView(LoginView);
         },
-        register: function () {
+        register: function() {
             helpService.setHelpLocation("06_users", "#online-users");
             loadVueView(RegisterView);
         },
-        add: function () {
+        add: function() {
             helpService.setHelpLocation("06_users", "#offline-users");
             loadVueView(AddOfflineView);
         },
-        welcome: function () {
+        welcome: function() {
             helpService.setHelpLocationIndex();
             loadVueView(WelcomeView);
         },
-        about: function () {
+        about: function() {
             helpService.setHelpLocationIndex();
             loadVueView(AboutView);
         },
-        dictionaries: function () {
+        dictionaries: function() {
             helpService.setHelpLocation(
                 "02_navigation",
                 "#manage-dictionaries-view"
             );
             loadVueView(DictionariesView);
         },
-        settings: function () {
+        settings: function() {
             //TODO add correct help location
             loadVueView(SettingsView);
         },
-        help: function () {
+        help: function() {
             loadVueView(HelpView);
         },
-        "*": function () {
+        "*": function() {
             helpService.setHelpLocation("02_navigation", "#main-view");
             Router.toMain();
         },
     });
     navigoInstance.hooks({
-        before: function (done, params) {
+        before: function(done, params) {
             let hash = location.hash;
             $(document).trigger(constants.EVENT_NAVIGATE);
             if (
@@ -162,10 +162,10 @@ Router.init = function (injectIdParam, initialHash) {
                 done();
             }
         },
-        after: function (params) {
+        after: function(params) {
             //log.debug('after');
         },
-        leave: function (params) {
+        leave: function(params) {
             //log.debug('leave');
         },
     });
@@ -179,11 +179,11 @@ Router.init = function (injectIdParam, initialHash) {
  * returns false if Router.init() wasn't called before, otherwise true
  * @return {boolean}
  */
-Router.isInitialized = function () {
+Router.isInitialized = function() {
     return _initialized;
 };
 
-Router.toMain = function () {
+Router.toMain = function() {
     if (getHash().indexOf("#main") === 0) {
         setHash("#main" + "?date=" + new Date().getTime());
     } else {
@@ -191,35 +191,35 @@ Router.toMain = function () {
     }
 };
 
-Router.toRegister = function () {
+Router.toRegister = function() {
     setHash("#register");
 };
 
-Router.toAddOffline = function () {
+Router.toAddOffline = function() {
     setHash("#add");
 };
 
-Router.toAbout = function () {
+Router.toAbout = function() {
     setHash("#about");
 };
 
-Router.toLogin = function () {
+Router.toLogin = function() {
     setHash("#login");
 };
 
-Router.toLastOpenedGrid = function () {
-    dataService.getMetadata().then((metadata) => {
+Router.toLastOpenedGrid = function() {
+    dataService.getMetadata().then(metadata => {
         Router.toGrid(metadata.lastOpenedGridId);
     });
 };
 
-Router.toGrid = function (id, props) {
+Router.toGrid = function(id, props) {
     if (id) {
         Router.addToGridHistory(id);
         let params = new URLSearchParams();
         let url = null;
         if (props) {
-            Object.keys(props).forEach((key) => {
+            Object.keys(props).forEach(key => {
                 params.set(key, props[key]);
             });
             url = `#grid/${id}?${params.toString()}`;
@@ -228,7 +228,7 @@ Router.toGrid = function (id, props) {
         }
 
         if (_currentView === GridView) {
-            dataService.getGrid(id).then((gridData) => {
+            dataService.getGrid(id).then(gridData => {
                 if (!gridData) {
                     return;
                 }
@@ -246,17 +246,17 @@ Router.toGrid = function (id, props) {
     }
 };
 
-Router.toEditGrid = function (id) {
+Router.toEditGrid = function(id) {
     if (id) {
         setHash("#grid/edit/" + id);
     }
 };
 
-Router.toManageGrids = function () {
+Router.toManageGrids = function() {
     setHash("#grids");
 };
 
-Router.back = function () {
+Router.back = function() {
     if (lastHash && lastHash !== location.hash) {
         setHash(lastHash, true);
     } else {
@@ -264,15 +264,15 @@ Router.back = function () {
     }
 };
 
-Router.isOnEditPage = function () {
+Router.isOnEditPage = function() {
     return window.location.hash.indexOf("#grid/edit") !== -1;
 };
 
-Router.getCurrentView = function () {
+Router.getCurrentView = function() {
     return _currentView;
 };
 
-Router.addToGridHistory = function (gridId) {
+Router.addToGridHistory = function(gridId) {
     if (
         _gridHistory.length > 0 &&
         _gridHistory[_gridHistory.length - 1] === gridId
@@ -286,7 +286,7 @@ Router.addToGridHistory = function (gridId) {
     _gridHistory.push(gridId);
 };
 
-Router.toLastGrid = function () {
+Router.toLastGrid = function() {
     if (_gridHistory.length === 1) {
         return;
     }
@@ -335,15 +335,15 @@ function loadVueView(viewObject, properties, menuItemToHighlight) {
 }
 
 function setMenuItemSelected(hash) {
-    $("nav button").removeClass("selected");
-    $(`nav a[href='${hash}'] button`).addClass("selected");
+    $("nav a").removeClass("selected");
+    $(`nav a[href='${hash}']`).addClass("selected");
 }
 
 function toMainInternal() {
     if (!routingEndabled) {
         return;
     }
-    dataService.getMetadata().then((metadata) => {
+    dataService.getMetadata().then(metadata => {
         let gridId = metadata ? metadata.lastOpenedGridId : null;
         loadVueView(GridView, {
             gridId: gridId,
