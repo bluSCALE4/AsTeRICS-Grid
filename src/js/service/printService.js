@@ -16,14 +16,14 @@ let pdfOptions = {
     textPadding: 3,
     elementMargin: 1,
     imgMargin: 1,
-    imgHeightPercentage: 0.8,
+    imgHeightPercentage: 0.8
 };
 
 let patternFontMappings = [
     {
         pattern: /^[\u0400-\u04FF]+$/,
-        font: "/app/fonts/Arimo-Regular-Cyrillic.ttf",
-    },
+        font: "/app/fonts/Arimo-Regular-Cyrillic.ttf"
+    }
 ];
 
 printService.initPrintHandlers = function () {
@@ -92,7 +92,7 @@ printService.gridsToPdf = async function (gridsData, options) {
     }
     const doc = new jsPDF.jsPDF({
         orientation: "landscape",
-        compress: true,
+        compress: true
     });
     if (options.fontPath) {
         await loadFont(options.fontPath, doc);
@@ -186,7 +186,7 @@ function addGridToPdf(doc, gridData, options, metadata) {
             yLine1,
             {
                 baseline: "bottom",
-                align: "left",
+                align: "left"
             }
         );
         if (hasARASAACImages) {
@@ -196,13 +196,13 @@ function addGridToPdf(doc, gridData, options, metadata) {
                 yBaseFooter,
                 {
                     baseline: "bottom",
-                    align: "left",
+                    align: "left"
                 }
             );
         }
         doc.text(textC, DOC_WIDTH / 2, yLine1, {
             baseline: "bottom",
-            align: "center",
+            align: "center"
         });
         doc.text(
             textR,
@@ -210,7 +210,7 @@ function addGridToPdf(doc, gridData, options, metadata) {
             yLine1,
             {
                 baseline: "bottom",
-                align: "right",
+                align: "right"
             }
         );
     }
@@ -251,7 +251,7 @@ function addGridToPdf(doc, gridData, options, metadata) {
                     DOC_HEIGHT - registerHeight / 2,
                     {
                         baseline: "middle",
-                        align: "center",
+                        align: "center"
                     }
                 );
             }
@@ -348,7 +348,7 @@ function addGridToPdf(doc, gridData, options, metadata) {
                             {
                                 baseline: "middle",
                                 align: "center",
-                                maxWidth: iconWidth,
+                                maxWidth: iconWidth
                             }
                         );
                     }
@@ -393,7 +393,7 @@ function addLabelToPdf(
     doc.text(label, xStartPos + currentWidth / 2, yStartPos + yOffset, {
         baseline: hasImg ? "bottom" : "top",
         align: "center",
-        maxWidth: maxWidth,
+        maxWidth: maxWidth
     });
 }
 

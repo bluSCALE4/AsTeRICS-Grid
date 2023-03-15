@@ -39,7 +39,7 @@ databaseService.getObject = function (objectType, id, onlyShortVersion) {
                 .then((result) => {
                     let options = {
                         objectType: objectType,
-                        onlyShortVersion: onlyShortVersion,
+                        onlyShortVersion: onlyShortVersion
                     };
                     let filteredData =
                         filterService.convertDatabaseToLiveObjects(

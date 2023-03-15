@@ -6,7 +6,7 @@ class NotificationConfig extends Model({
     modelVersion: String,
     backupNotifyIntervalDays: [Number],
     lastBackupNotification: [Number],
-    lastBackup: [Number],
+    lastBackup: [Number]
 }) {
     constructor(properties) {
         super(properties);
@@ -22,7 +22,7 @@ NotificationConfig.defaults({
     modelVersion: constants.MODEL_VERSION,
     backupNotifyIntervalDays: 7,
     lastBackupNotification: 0,
-    lastBackup: 0,
+    lastBackup: 0
 });
 
 export { NotificationConfig };

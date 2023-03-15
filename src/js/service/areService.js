@@ -29,7 +29,7 @@ areService.sendDataToInputPort = function (componentId, portId, value, areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -53,7 +53,7 @@ areService.triggerEvent = function (componentId, eventPortId, areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -70,7 +70,7 @@ areService.getRuntimeComponentIds = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -93,7 +93,7 @@ areService.uploadModelBase64 = function (modelInBase64, areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -138,7 +138,7 @@ areService.downloadDeployedModelBase64 = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -155,7 +155,7 @@ areService.startModel = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -178,7 +178,7 @@ areService.getModelName = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -195,7 +195,7 @@ areService.getRuntimeComponentIds = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -220,7 +220,7 @@ areService.getComponentInputPortIds = function (componentId, areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -245,7 +245,7 @@ areService.getComponentEventPortIds = function (componentId, areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };
@@ -299,7 +299,7 @@ areService.getComponentDescriptorsAsXml = function (areURI) {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 reject(errorThrown, jqXHR.responseText);
-            },
+            }
         });
     });
 };

@@ -14,7 +14,7 @@ let PLAYER_STATES = {
     ENDED: 0,
     PAUSED: 2,
     PLAYING: 1,
-    UNSTARTED: -1,
+    UNSTARTED: -1
 };
 let initYtState = {
     lastPlayType: GridActionYoutube.playTypes.YT_PLAY_PLAYLIST,
@@ -25,7 +25,7 @@ let initYtState = {
     lastPlaylistIndexes: {}, // Playlist ID -> last played video index
     dataApiCalls: {},
     muted: false,
-    volume: 100,
+    volume: 100
 };
 
 let DATA_API_KEY = "AIzaSyCDOUROr3UWS8K-WJNlAG21yBTOsveWQn8";
@@ -110,7 +110,7 @@ youtubeService.play = function (action, videoTimeParam) {
                     cc_load_policy: action.showCC ? 1 : 0,
                     cc_lang_pref: i18nService.getContentLang(),
                     rel: 0,
-                    iv_load_policy: 3,
+                    iv_load_policy: 3
                 },
                 events: {
                     onReady: onPlayerReady,
@@ -127,8 +127,8 @@ youtubeService.play = function (action, videoTimeParam) {
                     onError: () => {
                         log.warn("error on playing YouTube video");
                         errorMessage();
-                    },
-                },
+                    }
+                }
             });
         } else {
             processAction();
@@ -167,7 +167,7 @@ youtubeService.play = function (action, videoTimeParam) {
                         maxResults: 100,
                         q: action.data,
                         type: "video",
-                        videoEmbeddable: true,
+                        videoEmbeddable: true
                     }).then((response) => {
                         let videoIds = response.result.items
                             .map((item) => item.id.videoId)
@@ -193,7 +193,7 @@ youtubeService.play = function (action, videoTimeParam) {
                     player.loadPlaylist({
                         list: playlistId,
                         listType: "playlist",
-                        index: ytState.lastPlaylistIndexes[action.data],
+                        index: ytState.lastPlaylistIndexes[action.data]
                     });
                     break;
                 case GridActionYoutube.playTypes.YT_PLAY_CHANNEL:
@@ -204,7 +204,7 @@ youtubeService.play = function (action, videoTimeParam) {
                     player.loadPlaylist({
                         list: channelPlaylist,
                         listType: "playlist",
-                        index: ytState.lastPlaylistIndexes[action.data],
+                        index: ytState.lastPlaylistIndexes[action.data]
                     });
                     break;
                 case GridActionYoutube.playTypes.YT_PLAY_RELATED:
@@ -349,7 +349,7 @@ youtubeService.setVolume = function (volume, initSet) {
             }
             MainVue.setTooltip(i18nService.t("webradioVolume", volume), {
                 revertOnClose: true,
-                timeout: 5000,
+                timeout: 5000
             });
             ytState.volume = volume;
             saveState();
@@ -483,7 +483,7 @@ function callGapiCached(fnNameString, parameters, timeout) {
                     (response) => {
                         ytState.dataApiCalls[key] = {
                             time: new Date().getTime(),
-                            response: JSON.stringify(response),
+                            response: JSON.stringify(response)
                         };
                         saveState();
                         return resolve(response);
@@ -536,7 +536,7 @@ function saveState() {
 function errorMessage() {
     tooltipID = MainVue.setTooltip(i18nService.t("errorPlayingYoutube"), {
         timeout: 30000,
-        msgType: "warn",
+        msgType: "warn"
     });
 }
 

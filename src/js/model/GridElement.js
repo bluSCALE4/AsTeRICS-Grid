@@ -31,7 +31,7 @@ class GridElement extends Model({
     image: [GridImage],
     actions: [Object],
     type: String,
-    additionalProps: [Object],
+    additionalProps: [Object]
 }) {
     constructor(properties, elementToCopy) {
         let defaults = {
@@ -43,7 +43,7 @@ class GridElement extends Model({
             height: 1,
             image: new GridImage(),
             type: GridElement.ELEMENT_TYPE_NORMAL,
-            additionalProps: {},
+            additionalProps: {}
         };
         properties =
             modelUtil.setDefaults(properties, elementToCopy, GridElement) || {};
@@ -95,7 +95,7 @@ class GridElement extends Model({
             GridActionWebradio,
             GridActionYoutube,
             GridActionChangeLang,
-            GridActionOpenWebpage,
+            GridActionOpenWebpage
         ];
     }
 

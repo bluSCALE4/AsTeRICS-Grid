@@ -187,7 +187,7 @@ collectElementService.doCollectElementActions = async function (action) {
                 new GridActionYoutube({
                     action: GridActionYoutube.actions.YT_PLAY,
                     playType: GridActionYoutube.playTypes.YT_PLAY_SEARCH,
-                    data: collectedText,
+                    data: collectedText
                 })
             );
             break;
@@ -289,7 +289,7 @@ async function updateCollectElements(isSecondTry) {
             let totalWidth = 0;
             for (const [
                 index,
-                collectedElement,
+                collectedElement
             ] of collectedElements.entries()) {
                 let label = getLabel(collectedElement);
                 let image = getImage(collectedElement);
@@ -399,7 +399,7 @@ function getSpeakTextObject(element, dontIncludeAudio) {
     )[0];
     if (audioAction && !dontIncludeAudio && audioAction.dataBase64) {
         return {
-            base64Sound: audioAction.dataBase64,
+            base64Sound: audioAction.dataBase64
         };
     }
     let label = getLabel(element);
@@ -411,12 +411,12 @@ function getSpeakTextObject(element, dontIncludeAudio) {
             let lang =
                 customSpeakAction.speakLanguage || i18nService.getContentLang();
             label = i18nService.getTranslation(customSpeakAction.speakText, {
-                forceLang: lang,
+                forceLang: lang
             });
         }
     }
     return {
-        text: label,
+        text: label
     };
 }
 
@@ -431,7 +431,7 @@ function getSpeakTextArray() {
 function addTextElem(text) {
     collectedElements.push(
         new GridElement({
-            label: i18nService.getTranslationObject(text),
+            label: i18nService.getTranslationObject(text)
         })
     );
 }
@@ -454,7 +454,7 @@ $(window).on(constants.ELEMENT_EVENT_ID, function (event, element) {
         GridActionSpeak.getModelName(),
         GridActionSpeakCustom.getModelName(),
         GridActionNavigate.getModelName(),
-        GridActionAudio.getModelName(),
+        GridActionAudio.getModelName()
     ];
     let ignoreActions = GridElement.getActionTypeModelNames().filter(
         (e) => !notIgonoreActions.includes(e)

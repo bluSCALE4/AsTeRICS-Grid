@@ -7,7 +7,7 @@ class GridActionWebradio extends Model({
     modelName: String,
     modelVersion: String,
     action: [String],
-    radioId: [String],
+    radioId: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -31,7 +31,7 @@ class GridActionWebradio extends Model({
             GridActionWebradio.WEBRADIO_ACTION_NEXT,
             GridActionWebradio.WEBRADIO_ACTION_PREV,
             GridActionWebradio.WEBRADIO_ACTION_VOLUP,
-            GridActionWebradio.WEBRADIO_ACTION_VOLDOWN,
+            GridActionWebradio.WEBRADIO_ACTION_VOLDOWN
         ];
     }
 }
@@ -49,7 +49,7 @@ GridActionWebradio.defaults({
     modelName: GridActionWebradio.getModelName(),
     modelVersion: constants.MODEL_VERSION,
     radioId: "",
-    action: GridActionWebradio.WEBRADIO_ACTION_START,
+    action: GridActionWebradio.WEBRADIO_ACTION_START
 });
 
 export { GridActionWebradio };

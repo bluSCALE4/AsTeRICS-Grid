@@ -8,7 +8,7 @@ class GridActionAudio extends Model({
     modelVersion: String,
     dataBase64: [String],
     mimeType: [String],
-    durationMs: [Number],
+    durationMs: [Number]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -28,7 +28,7 @@ class GridActionAudio extends Model({
 GridActionAudio.defaults({
     id: "", //will be replaced by constructor
     modelName: GridActionAudio.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { GridActionAudio };

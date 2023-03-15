@@ -45,7 +45,7 @@ class InputConfig extends Model({
     huffShowNumbers: [Boolean],
     huffColorWholeElement: [Boolean],
     huffTimeout: [Number],
-    huffMarkInactive: [Boolean],
+    huffMarkInactive: [Boolean]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -92,79 +92,79 @@ InputConfig.DEFAULT_SCAN_INPUTS = [
         label: InputConfig.SELECT,
         keyCode: 32,
         keyName: "Space",
-        holdDuration: 400,
+        holdDuration: 400
     }),
     new InputEventKey({
         label: InputConfig.NEXT,
         keyCode: 32,
-        keyName: "Space",
-    }),
+        keyName: "Space"
+    })
 ];
 InputConfig.DEFAULT_SEQ_INPUTS = [
     new InputEventKey({
         label: InputConfig.SELECT,
         keyCode: 32,
-        keyName: "Space",
+        keyName: "Space"
     }),
     new InputEventKey({
         label: InputConfig.NEXT_ELEMENT,
         keyCode: 39,
-        keyName: "ArrowRight",
+        keyName: "ArrowRight"
     }),
     new InputEventKey({
         label: InputConfig.PREVIOUS_ELEMENT,
         keyCode: 37,
-        keyName: "ArrowLeft",
-    }),
+        keyName: "ArrowLeft"
+    })
 ];
 InputConfig.DEFAULT_DIR_INPUTS = [
     new InputEventKey({
         label: InputConfig.SELECT,
         keyCode: 32,
-        keyName: "Space",
+        keyName: "Space"
     }),
     new InputEventKey({
         label: InputConfig.LEFT,
         keyCode: 37,
-        keyName: "ArrowLeft",
+        keyName: "ArrowLeft"
     }),
     new InputEventKey({
         label: InputConfig.RIGHT,
         keyCode: 39,
-        keyName: "ArrowRight",
+        keyName: "ArrowRight"
     }),
     new InputEventKey({
         label: InputConfig.UP,
         keyCode: 38,
-        keyName: "ArrowUp",
+        keyName: "ArrowUp"
     }),
     new InputEventKey({
         label: InputConfig.DOWN,
         keyCode: 40,
-        keyName: "ArrowDown",
-    }),
+        keyName: "ArrowDown"
+    })
 ];
 InputConfig.DEFAULT_HUFF_INPUTS = [
     new InputEventKey({
         label: InputConfig.GENERAL_INPUT,
         keyCode: 49,
-        keyName: "Digit1",
+        keyName: "Digit1"
     }),
     new InputEventKey({
         label: InputConfig.GENERAL_INPUT,
         keyCode: 50,
-        keyName: "Digit2",
+        keyName: "Digit2"
     }),
     new InputEventKey({
         label: InputConfig.GENERAL_INPUT,
         keyCode: 51,
-        keyName: "Digit3",
+        keyName: "Digit3"
     }),
     new InputEventKey({
         label: InputConfig.GENERAL_INPUT,
         keyCode: 52,
-        keyName: "Digit4",
-    }),
+        keyName: "Digit4"
+    })
 ];
 InputConfig.DEFAULT_HUFF_COLORS = [
     "#D55E00",
@@ -175,7 +175,7 @@ InputConfig.DEFAULT_HUFF_COLORS = [
     "#E69F00",
     "#56B4E9",
     "#000000",
-    "#016619",
+    "#016619"
 ];
 
 InputConfig.defaults({
@@ -207,7 +207,7 @@ InputConfig.defaults({
     huffShowNumbers: true,
     huffElementCount: 0,
     huffTimeout: 4000,
-    huffMarkInactive: true,
+    huffMarkInactive: true
 });
 
 export { InputConfig };

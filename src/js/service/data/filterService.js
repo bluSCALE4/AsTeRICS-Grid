@@ -152,7 +152,7 @@ function getModelConversionFunctions(objectModelVersion) {
                             new InputEventKey({
                                 label: InputConfig.SELECT,
                                 keyCode: inputConfig.scanKey,
-                                keyName: inputConfig.scanKeyName,
+                                keyName: inputConfig.scanKeyName
                             })
                         );
                         inputConfig.scanEnabled = inputConfig.scanAutostart;
@@ -240,11 +240,11 @@ function getModelConversionFunctions(objectModelVersion) {
                             Object.assign(collectElem, gridElement);
                             collectElem.actions = [
                                 new GridActionCollectElement({
-                                    action: GridActionCollectElement.COLLECT_ACTION_SPEAK,
+                                    action: GridActionCollectElement.COLLECT_ACTION_SPEAK
                                 }),
                                 new GridActionPredict({
-                                    suggestOnChange: true,
-                                }),
+                                    suggestOnChange: true
+                                })
                             ];
                             gridData.gridElements[i] = collectElem;
                         }

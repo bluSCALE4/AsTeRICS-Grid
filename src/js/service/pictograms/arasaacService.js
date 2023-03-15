@@ -54,31 +54,31 @@ let searchProviderInfo = {
         "sr",
         "val",
         "uk",
-        "zh",
+        "zh"
     ],
     options: [
         {
             name: "plural",
             type: constants.OPTION_TYPES.BOOLEAN,
-            value: false,
+            value: false
         },
         {
             name: "color",
             type: constants.OPTION_TYPES.BOOLEAN,
-            value: true,
+            value: true
         },
         {
             name: "action",
             type: constants.OPTION_TYPES.SELECT,
             value: undefined,
-            options: ["past", "future"],
+            options: ["past", "future"]
         },
         {
             name: "skin",
             type: constants.OPTION_TYPES.SELECT_COLORS,
             value: undefined,
             options: ["white", "black", "assian", "mulatto", "aztec"],
-            colors: ["#F5E5DE", "#A65C17", "#F4ECAD", "#E3AB72", "#CF9D7C"],
+            colors: ["#F5E5DE", "#A65C17", "#F4ECAD", "#E3AB72", "#CF9D7C"]
         },
         {
             name: "hair",
@@ -91,7 +91,7 @@ let searchProviderInfo = {
                 "gray",
                 "darkGray",
                 "red",
-                "black",
+                "black"
             ],
             colors: [
                 "#FDD700",
@@ -100,22 +100,22 @@ let searchProviderInfo = {
                 "#EFEFEF",
                 "#AAABAB",
                 "#ED4120",
-                "#020100",
-            ],
+                "#020100"
+            ]
         },
         {
             name: "identifier",
             type: constants.OPTION_TYPES.SELECT,
             value: undefined,
-            options: ["classroom", "health", "library", "office"],
+            options: ["classroom", "health", "library", "office"]
         },
         {
             name: "identifierPosition",
             type: constants.OPTION_TYPES.SELECT,
             value: undefined,
-            options: ["left", "right"],
-        },
-    ],
+            options: ["left", "right"]
+        }
+    ]
 };
 
 arasaacService.getSearchProviderInfo = function () {
@@ -132,7 +132,7 @@ arasaacService.getGridImageById = function (arasaacId) {
         url: `https://api.arasaac.org/api/pictograms/${arasaacId}?download=false&plural=false&color=true`,
         author: arasaacAuthor,
         authorURL: arasaacLicenseURL,
-        searchProviderName: arasaacService.SEARCH_PROVIDER_NAME,
+        searchProviderName: arasaacService.SEARCH_PROVIDER_NAME
     });
 };
 
@@ -215,7 +215,7 @@ function queryInternal(search, lang, chunkNr, chunkSize) {
                         i18nService.getContentLang(),
                         i18nService.getBrowserLang(),
                         "en",
-                        "es",
+                        "es"
                     ],
                     search
                 );

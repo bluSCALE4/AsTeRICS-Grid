@@ -8,7 +8,7 @@ class InputEventARE extends Model({
     modelVersion: String,
     label: [String],
     eventNames: [Model.Array(String)],
-    areURL: [String],
+    areURL: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -33,7 +33,7 @@ InputEventARE.defaults({
     id: "", //will be replaced by constructor
     modelName: InputEventARE.getModelName(),
     modelVersion: constants.MODEL_VERSION,
-    eventNames: [],
+    eventNames: []
 });
 
 export { InputEventARE };

@@ -28,7 +28,7 @@ let NO_DB_VIEWS = [
     "#add",
     "#about",
     "#help",
-    "#outdated",
+    "#outdated"
 ];
 
 let Router = {};
@@ -80,7 +80,7 @@ Router.init = function (injectIdParam, initialHash) {
                     loadVueView(
                         GridView,
                         {
-                            gridId: id,
+                            gridId: id
                         },
                         "#main"
                     );
@@ -94,7 +94,7 @@ Router.init = function (injectIdParam, initialHash) {
             log.debug("route edit grid with ID: " + params.gridId);
             helpService.setHelpLocation("02_navigation", "#edit-view");
             loadVueView(GridEditView, {
-                gridId: params.gridId,
+                gridId: params.gridId
             });
         },
         login: function () {
@@ -134,7 +134,7 @@ Router.init = function (injectIdParam, initialHash) {
         "*": function () {
             helpService.setHelpLocation("02_navigation", "#main-view");
             Router.toMain();
-        },
+        }
     });
     navigoInstance.hooks({
         before: function (done, params) {
@@ -167,7 +167,7 @@ Router.init = function (injectIdParam, initialHash) {
         },
         leave: function (params) {
             //log.debug('leave');
-        },
+        }
     });
     if (initialHash) {
         setHash(initialHash);
@@ -346,7 +346,7 @@ function toMainInternal() {
     dataService.getMetadata().then((metadata) => {
         let gridId = metadata ? metadata.lastOpenedGridId : null;
         loadVueView(GridView, {
-            gridId: gridId,
+            gridId: gridId
         });
     });
 }

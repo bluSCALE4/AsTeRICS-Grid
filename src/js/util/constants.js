@@ -65,7 +65,7 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "CC_PLACE",
             "CC_CATEGORY",
             "CC_IMPORTANT",
-            "CC_OTHERS",
+            "CC_OTHERS"
         ],
         colors: [
             "#fdfd96",
@@ -77,8 +77,8 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "#bc98f3",
             "#d8af97",
             "#ff9688",
-            "#bdbfbf",
-        ],
+            "#bdbfbf"
+        ]
     },
     {
         name: "CS_MODIFIED_FITZGERALD_KEY_MEDIUM",
@@ -92,7 +92,7 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "CC_PLACE",
             "CC_CATEGORY",
             "CC_IMPORTANT",
-            "CC_OTHERS",
+            "CC_OTHERS"
         ],
         colors: [
             "#ffff6b",
@@ -104,8 +104,8 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "#ce6bff",
             "#bd754e",
             "#ff704d",
-            "#a3a3a3",
-        ],
+            "#a3a3a3"
+        ]
     },
     {
         name: "CS_GOOSENS_LIGHT",
@@ -114,9 +114,9 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "CC_DESCRIPTOR",
             "CC_PREPOSITION",
             "CC_NOUN",
-            "CC_QUESTION_NEGATION_PRONOUN",
+            "CC_QUESTION_NEGATION_PRONOUN"
         ],
-        colors: ["#fdcae1", "#84b6f4", "#c7f3c7", "#fdfd96", "#ffda89"],
+        colors: ["#fdcae1", "#84b6f4", "#c7f3c7", "#fdfd96", "#ffda89"]
     },
     {
         name: "CS_GOOSENS_MEDIUM",
@@ -125,17 +125,17 @@ constants.DEFAULT_COLOR_SCHEMES = [
             "CC_DESCRIPTOR",
             "CC_PREPOSITION",
             "CC_NOUN",
-            "CC_QUESTION_NEGATION_PRONOUN",
+            "CC_QUESTION_NEGATION_PRONOUN"
         ],
-        colors: ["#ff6bff", "#6bb5ff", "#b5ff6b", "#ffff6b", "#ffb56b"],
-    },
+        colors: ["#ff6bff", "#6bb5ff", "#b5ff6b", "#ffff6b", "#ffb56b"]
+    }
 ];
 
 constants.OPTION_TYPES = {
     BOOLEAN: "BOOLEAN",
     COLOR: "COLOR",
     SELECT: "SELECT",
-    SELECT_COLORS: "SELECT_COLORS",
+    SELECT_COLORS: "SELECT_COLORS"
 };
 
 export { constants };

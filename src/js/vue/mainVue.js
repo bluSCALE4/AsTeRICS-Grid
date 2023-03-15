@@ -82,7 +82,7 @@ MainVue.init = function () {
                     showProgressBar: false,
                     constants: constants,
                     tooltipHTML: null,
-                    actionLink: null,
+                    actionLink: null
                 };
             },
             methods: {
@@ -104,7 +104,7 @@ MainVue.init = function () {
                     $.contextMenu("destroy");
                     setupContextMenu();
                     $("#moreNavigation").contextMenu();
-                },
+                }
             },
             mounted() {
                 let thiz = this;
@@ -192,7 +192,7 @@ MainVue.init = function () {
                         }
                     });
                 }
-            },
+            }
         });
         return Promise.resolve();
     });
@@ -205,16 +205,16 @@ function setupContextMenu() {
     let menuItems = {
         CONTEXT_ADD_ONLINE: {
             name: i18nService.t("addOnlineUser"),
-            icon: "fas fa-user-plus",
+            icon: "fas fa-user-plus"
         },
         CONTEXT_ADD_OFFLINE: {
             name: i18nService.t("addOfflineUser"),
-            icon: "fas fa-user-plus",
+            icon: "fas fa-user-plus"
         },
         CONTEXT_ABOUT: {
             name: i18nService.t("aboutAstericsGrid"),
-            icon: "fas fa-info-circle",
-        },
+            icon: "fas fa-info-circle"
+        }
     };
     $.contextMenu({
         selector: "#moreNavigation",
@@ -223,7 +223,7 @@ function setupContextMenu() {
         },
         items: menuItems,
         trigger: "left",
-        zIndex: 10,
+        zIndex: 10
     });
 
     function handleContextMenu(key) {

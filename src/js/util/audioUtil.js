@@ -20,7 +20,7 @@ audioUtil.record = async function (dataCallback) {
     if (!_audioStream) {
         _audioStream = await navigator.mediaDevices.getUserMedia({
             audio: true,
-            video: false,
+            video: false
         });
     }
     if (!_audioStream) {
@@ -40,7 +40,7 @@ audioUtil.record = async function (dataCallback) {
     const recordedChunks = [];
     audioUtil.stopRecording();
     _mediaRecorder = new MediaRecorder(_audioStream, {
-        mimeType: supportedTypes[0],
+        mimeType: supportedTypes[0]
     });
 
     _mediaRecorder.addEventListener("dataavailable", function (e) {
@@ -52,7 +52,7 @@ audioUtil.record = async function (dataCallback) {
         let base64 = await blobToBase64(blob);
         dataCallback({
             base64: base64,
-            mimeType: supportedTypes[0],
+            mimeType: supportedTypes[0]
         });
     });
 

@@ -8,7 +8,7 @@ class GridImage extends Model({
     author: [String],
     authorURL: [String],
     searchProviderName: [String],
-    searchProviderOptions: [Array],
+    searchProviderOptions: [Array]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -76,13 +76,13 @@ class GridImage extends Model({
 GridImage.IMAGE_TYPES = {
     PNG: "PNG",
     JPEG: "JPEG",
-    SVG: "SVG",
+    SVG: "SVG"
 };
 
 GridImage.defaults({
     data: null,
     author: null,
-    authorURL: null,
+    authorURL: null
 });
 
 export { GridImage };

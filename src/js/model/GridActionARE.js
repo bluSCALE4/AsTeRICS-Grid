@@ -11,7 +11,7 @@ class GridActionARE extends Model({
     componentId: [String],
     dataPortId: [String],
     dataPortSendData: [String],
-    eventPortId: [String],
+    eventPortId: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -31,7 +31,7 @@ class GridActionARE extends Model({
 GridActionARE.defaults({
     id: "", //will be replaced by constructor
     modelName: GridActionARE.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { GridActionARE };

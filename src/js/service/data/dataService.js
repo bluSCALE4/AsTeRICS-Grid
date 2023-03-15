@@ -404,7 +404,7 @@ dataService.downloadBackupToFile = async function () {
         exportOnlyCurrentLang: false,
         exportDictionaries: true,
         exportUserSettings: true,
-        filename: `${user}_${util.getCurrentDateTimeString()}_asterics-grid-full-backup.grd`,
+        filename: `${user}_${util.getCurrentDateTimeString()}_asterics-grid-full-backup.grd`
     });
 };
 
@@ -470,7 +470,7 @@ dataService.downloadToFile = async function (gridIds, options) {
     }
 
     let blob = new Blob([JSON.stringify(exportData)], {
-        type: "text/plain;charset=utf-8",
+        type: "text/plain;charset=utf-8"
     });
     let filename =
         options.filename ||
@@ -552,13 +552,13 @@ dataService.importBackup = async function (file, progressFn) {
     if (!importData) {
         progressFn(100);
         MainVue.setTooltip(i18nService.t("backupFileDoesntContainData"), {
-            msgType: "warn",
+            msgType: "warn"
         });
         return;
     }
     return dataService.importBackupData(importData, {
         progressFn: progressFn,
-        generateGlobalGrid: fileUtil.isObzFile(file),
+        generateGlobalGrid: fileUtil.isObzFile(file)
     });
 };
 
@@ -575,7 +575,7 @@ dataService.importBackupData = async function (importData, options) {
         importUserSettings: true,
         progressFn: (p) => {
             options.progressFn(30 + (p / 100) * 70);
-        },
+        }
     });
 
     await dataService.markCurrentConfigAsBackedUp();

@@ -25,7 +25,7 @@ SequentialInput.getInstanceFromConfig = function (
         enableAuto: inputConfig.seqAuto,
         autoTimeout: inputConfig.seqTimeoutMs,
         firstElementFactor: inputConfig.seqTimeoutFirstElementFactor,
-        resetAfterSelect: inputConfig.seqResetToStart,
+        resetAfterSelect: inputConfig.seqResetToStart
     });
 };
 

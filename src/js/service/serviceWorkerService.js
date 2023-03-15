@@ -6,13 +6,13 @@ let controller = null;
 
 serviceWorkerService.cacheUrl = function (url) {
     postMessageInternal({
-        urlToAdd: url,
+        urlToAdd: url
     });
 };
 
 serviceWorkerService.cacheImageUrl = function (url) {
     postMessageInternal({
-        imageUrlToAdd: url,
+        imageUrlToAdd: url
     });
 };
 

@@ -22,7 +22,7 @@ function initDirectives() {
                 if (el.focus) el.focus();
                 if (el.select) el.select();
             }
-        },
+        }
     });
     Vue.directive("debounce", {
         inserted: function (el, binding) {
@@ -32,7 +32,7 @@ function initDirectives() {
                     el.dispatchEvent(new Event("change"));
                 }, parseInt(binding.value) || 500);
             };
-        },
+        }
     });
 }
 

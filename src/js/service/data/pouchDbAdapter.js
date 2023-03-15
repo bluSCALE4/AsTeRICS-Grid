@@ -72,7 +72,7 @@ function PouchDbAdapter(
                             .changes({
                                 since: "now",
                                 live: true,
-                                include_docs: true,
+                                include_docs: true
                             })
                             .on("change", function (info) {
                                 handleDbChange(info);
@@ -293,7 +293,7 @@ function PouchDbAdapter(
                 _syncHandler = _db
                     .sync(_remoteDb, {
                         live: false,
-                        retry: false,
+                        retry: false
                     })
                     .on("active", function (info) {
                         setSyncState(constants.DB_SYNC_STATE_SYNCINC);
@@ -346,7 +346,7 @@ function PouchDbAdapter(
                 _syncHandler = _db
                     .sync(_remoteDb, {
                         live: true,
-                        retry: false,
+                        retry: false
                     })
                     .on("paused", function (info) {
                         log.debug("sync paused");

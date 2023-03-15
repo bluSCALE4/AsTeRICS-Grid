@@ -323,7 +323,7 @@ var localStorageService = {
     },
     setCurrentAppVersion(versionString) {
         localStorageService.save(CURRENT_VERSION_KEY, versionString);
-    },
+    }
 };
 
 function getSaveObject(key) {

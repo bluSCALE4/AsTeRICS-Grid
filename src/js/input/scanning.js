@@ -27,7 +27,7 @@ Scanner.getInstanceFromConfig = function (
         )[0],
         inputEventNext: inputConfig.scanInputs.filter(
             (e) => e.label === InputConfig.NEXT
-        )[0],
+        )[0]
     });
 };
 
@@ -352,11 +352,11 @@ function ScannerConstructor(itemSelector, scanActiveClass, options) {
             _isScanning = true;
             if (rows.length === 1) {
                 scan(spitToSubarrays(L.flattenArray(rows)), {
-                    restarted: restarted,
+                    restarted: restarted
                 });
             } else {
                 scan(spitToSubarrays(rows), {
-                    restarted: restarted,
+                    restarted: restarted
                 });
             }
             _inputEventHandler.startListening();

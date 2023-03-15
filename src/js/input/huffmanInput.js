@@ -26,7 +26,7 @@ HuffmanInput.getInstanceFromConfig = function (
             elementCount: inputConfig.huffElementCount,
             timeout: inputConfig.huffTimeout,
             markInactive: inputConfig.huffMarkInactive,
-            selectionListener: selectionListener,
+            selectionListener: selectionListener
         }
     );
 };
@@ -175,7 +175,7 @@ function HuffmanInputConstructor(
             return {
                 name: name,
                 weight: 10000 - index,
-                codeWord: null,
+                codeWord: null
             };
         });
 

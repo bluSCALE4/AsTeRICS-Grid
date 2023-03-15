@@ -13,7 +13,7 @@ class GridActionYoutube extends Model({
     stepVolume: [Number],
     showCC: [Boolean],
     playMuted: [Boolean],
-    performAfterNav: [Boolean],
+    performAfterNav: [Boolean]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -54,7 +54,7 @@ GridActionYoutube.actions = {
     YT_ENTER_FULLSCREEN: "YT_ENTER_FULLSCREEN",
     YT_VOLUME_UP: "YT_VOLUME_UP",
     YT_VOLUME_DOWN: "YT_VOLUME_DOWN",
-    YT_VOLUME_MUTE: "YT_VOLUME_MUTE",
+    YT_VOLUME_MUTE: "YT_VOLUME_MUTE"
 };
 
 GridActionYoutube.playTypes = {
@@ -62,7 +62,7 @@ GridActionYoutube.playTypes = {
     YT_PLAY_PLAYLIST: "YT_PLAY_PLAYLIST",
     YT_PLAY_SEARCH: "YT_PLAY_SEARCH",
     YT_PLAY_CHANNEL: "YT_PLAY_CHANNEL",
-    YT_PLAY_RELATED: "YT_PLAY_RELATED",
+    YT_PLAY_RELATED: "YT_PLAY_RELATED"
 };
 
 GridActionYoutube.defaults({
@@ -71,7 +71,7 @@ GridActionYoutube.defaults({
     modelVersion: constants.MODEL_VERSION,
     stepSeconds: 10,
     stepVolume: 20,
-    playType: GridActionYoutube.playTypes.YT_PLAY_VIDEO,
+    playType: GridActionYoutube.playTypes.YT_PLAY_VIDEO
 });
 
 export { GridActionYoutube };

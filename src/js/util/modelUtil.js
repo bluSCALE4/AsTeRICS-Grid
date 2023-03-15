@@ -6,7 +6,7 @@ let _currentModelVersion = JSON.parse(constants.MODEL_VERSION);
 let _emptyVersionObject = {
     major: null,
     minor: null,
-    patch: null,
+    patch: null
 };
 
 modelUtil.generateId = function (prefix) {

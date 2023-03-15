@@ -28,7 +28,7 @@ DirectionInput.getInstanceFromConfig = function (
         )[0],
         wrapAround: inputConfig.dirWrapAround,
         resetToStart: inputConfig.dirResetToStart,
-        selectionListener: selectionListener,
+        selectionListener: selectionListener
     });
 };
 
@@ -184,7 +184,7 @@ function DirectionInputConstructor(
                     down: allNeg(diff5, diff6, diff7, diff8),
                     absDiffX: absDiffX,
                     absDiffY: absDiffY,
-                    absDiff: absDiffX + absDiffY,
+                    absDiff: absDiffX + absDiffY
                 };
             });
 
@@ -253,7 +253,7 @@ function DirectionInputConstructor(
                 left: left,
                 right: right,
                 up: up,
-                down: down,
+                down: down
             };
         });
     }

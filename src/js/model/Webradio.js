@@ -10,7 +10,7 @@ class Webradio extends Model({
     radioUUID: [String],
     radioName: [String],
     radioUrl: [String],
-    faviconUrl: [String],
+    faviconUrl: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(properties, elementToCopy, Webradio);
@@ -26,7 +26,7 @@ class Webradio extends Model({
 Webradio.defaults({
     id: "", //will be replaced by constructor
     modelName: Webradio.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { Webradio };

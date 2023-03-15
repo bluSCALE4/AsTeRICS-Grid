@@ -4,7 +4,7 @@ import { constants } from "../util/constants";
 class TextConfig extends Model({
     modelName: String,
     modelVersion: String,
-    convertMode: [String],
+    convertMode: [String]
 }) {
     constructor(properties) {
         super(properties);
@@ -21,7 +21,7 @@ TextConfig.CONVERT_MODE_LOWERCASE = "CONVERT_MODE_LOWERCASE";
 TextConfig.defaults({
     modelName: TextConfig.getModelName(),
     modelVersion: constants.MODEL_VERSION,
-    convertMode: null,
+    convertMode: null
 });
 
 export { TextConfig };

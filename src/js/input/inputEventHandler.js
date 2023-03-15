@@ -67,7 +67,7 @@ function Constructor() {
         document.addEventListener("keyup", keyUpListener);
         document.addEventListener("fullscreenchange", fullscreenChangeListener);
         _touchElement.addEventListener("touchmove", touchMoveListener, {
-            passive: false,
+            passive: false
         });
         _touchElement.addEventListener("touchstart", touchStartListener);
         _touchElement.addEventListener("touchend", touchEndListener);
@@ -178,7 +178,7 @@ function Constructor() {
             case InputEventARE.getModelName():
                 _areInputEvents[inputEvent.id] = {
                     inputEvent: inputEvent,
-                    fn: fn,
+                    fn: fn
                 };
                 if (_listening) {
                     subscribeAREEvent(inputEvent, fn);
@@ -227,7 +227,7 @@ function Constructor() {
             lastKeydown: null,
             lastAction: null,
             counter: 0,
-            timeoutHandler: null,
+            timeoutHandler: null
         };
     }
 
