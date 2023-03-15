@@ -10,7 +10,7 @@ class GridActionOpenHAB extends Model({
     itemType: [String], //Dimmer, Switch, ... itemType
     itemName: [String], //itemName
     actionType: [String], //ON, OFF, CUSTOM_VALUE ... actionType
-    actionValue: [String], //HSL, 0-100, ... (optional)
+    actionValue: [String] //HSL, 0-100, ... (optional)
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -35,7 +35,7 @@ GridActionOpenHAB.defaults({
     itemType: "", //Dimmer, Switch, ... itemType
     itemName: "", //itemName
     actionType: "", //ON, OFF, CUSTOM_VALUE ... actionType,
-    openHABUrl: "",
+    openHABUrl: ""
 });
 
 export { GridActionOpenHAB };

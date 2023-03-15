@@ -31,7 +31,7 @@ encryptionService.encryptObject = function (object) {
 
     let encryptedObject = new EncryptedObject({
         id: object.id,
-        modelName: object.modelName,
+        modelName: object.modelName
     });
     encryptedObject._id = object.id;
     if (object._rev) {

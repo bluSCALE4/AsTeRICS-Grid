@@ -22,7 +22,7 @@ class MetaData extends Model({
     colorConfig: [ColorConfig],
     textConfig: [TextConfig],
     localeConfig: [LocaleConfig],
-    notificationConfig: [NotificationConfig],
+    notificationConfig: [NotificationConfig]
 }) {
     constructor(properties, elementToCopy) {
         properties =
@@ -93,7 +93,7 @@ MetaData.defaults({
     hashCodes: {},
     inputConfig: new InputConfig(),
     globalGridActive: false,
-    globalGridHeightPercentage: 17,
+    globalGridHeightPercentage: 17
 });
 
 export { MetaData };

@@ -28,9 +28,9 @@ openHABService.sendAction = async function (action) {
     await fetch(action.openHABUrl + action.itemName, {
         method: "POST",
         headers: {
-            "Content-Type": "text/plain",
+            "Content-Type": "text/plain"
         },
-        body: data,
+        body: data
     }).catch((rejection) => console.error(rejection));
 };
 

@@ -21,7 +21,7 @@ class GridData extends Model({
     gridElements: Model.Array(GridElement),
     additionalFiles: [Model.Array(AdditionalGridFile)],
     webRadios: [Model.Array(Webradio)],
-    thumbnail: [Object], // map with 2 properties: [data, hash], where "data" is base64 Screenshot data and "hash" is the hash of the grid when the screenshot was made
+    thumbnail: [Object] // map with 2 properties: [data, hash], where "data" is base64 Screenshot data and "hash" is the hash of the grid when the screenshot was made
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(properties, elementToCopy, GridData);
@@ -125,7 +125,7 @@ class GridData extends Model({
         if (forBigElement) {
             return {
                 x: maxX,
-                y: 0,
+                y: 0
             };
         }
 
@@ -135,7 +135,7 @@ class GridData extends Model({
         }
         return {
             x: maxX,
-            y: 0,
+            y: 0
         };
     }
 
@@ -149,7 +149,7 @@ class GridData extends Model({
         let xy = this.getNewXYPos();
         options = Object.assign(options, {
             x: xy.x,
-            y: xy.y,
+            y: xy.y
         });
         return new GridElement(options);
     }
@@ -291,7 +291,7 @@ GridData.defaults({
     additionalFiles: [],
     webRadios: [],
     label: {},
-    lastUpdateTime: new Date().getTime(),
+    lastUpdateTime: new Date().getTime()
 });
 
 export { GridData };

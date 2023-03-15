@@ -181,7 +181,7 @@ loginService.register = function (user, plainPassword, saveUser) {
             email:
                 new Date().getTime() + "." + Math.random() + "@norealmail.org",
             password: password,
-            confirmPassword: password,
+            confirmPassword: password
         })
         .then((info) => {
             return loginInternal(user, password, saveUser);
@@ -266,7 +266,7 @@ function loginInternal(user, hashedPassword, saveUser) {
     return superlogin
         .login({
             username: user,
-            password: hashedPassword,
+            password: hashedPassword
         })
         .then((info) => {
             log.info("login success!");
@@ -387,7 +387,7 @@ function getConfig() {
         // The number of milliseconds before a request times out
         // If the request takes longer than `timeout`, the request will be aborted.
         // Default is 0, meaning it won't timeout.
-        timeout: 0,
+        timeout: 0
     };
 }
 

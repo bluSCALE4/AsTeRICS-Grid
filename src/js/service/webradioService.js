@@ -19,7 +19,7 @@ let searchParameters = [
     "language",
     "tag",
     "tagList",
-    "order",
+    "order"
 ];
 let standardSearchParameter = "name";
 
@@ -129,7 +129,7 @@ webradioService.play = function (webradio) {
             closeOnNavigate: false,
             actionLink: i18nService.t("stop"),
             actionLinkFn: webradioService.stop,
-            imageUrl: radioWithUrl.faviconUrl,
+            imageUrl: radioWithUrl.faviconUrl
         });
         if (promise && promise.then) {
             //IE does not return promise on play
@@ -201,7 +201,7 @@ webradioService.search = function (searchString, limit, offset) {
         if (index > -1) {
             paramPositions.push({
                 param: parameter,
-                position: index,
+                position: index
             });
         }
     });
@@ -232,7 +232,7 @@ webradioService.search = function (searchString, limit, offset) {
             url: API_URL + API_ACTION_SEARCH,
             data: params,
             dataType: "json",
-            contentType: "application/x-www-form-urlencoded",
+            contentType: "application/x-www-form-urlencoded"
         }).then(
             (data) => {
                 hasMoreSearchResults = data.length === limitToUse;
@@ -246,7 +246,7 @@ webradioService.search = function (searchString, limit, offset) {
                             radioId: el.stationuuid,
                             radioUUID: el.stationuuid,
                             radioName: el.name,
-                            faviconUrl: el.favicon,
+                            faviconUrl: el.favicon
                         };
                     })
                 );
@@ -270,7 +270,7 @@ function showErrorMsg(webradio) {
     MainVue.setTooltip(
         i18nService.t("errorPlayingWebradio", webradio.radioName),
         {
-            msgType: "warn",
+            msgType: "warn"
         }
     );
 }
@@ -280,7 +280,7 @@ function setVolumeTooltip() {
         i18nService.t("webradioVolume", Math.round(volume * 100)),
         {
             revertOnClose: true,
-            timeout: 5000,
+            timeout: 5000
         }
     );
 }
@@ -293,13 +293,13 @@ function fillUrl(webradio, gridId) {
         $.ajax({
             type: "GET",
             url: API_URL + API_ACTION_GETURL + "/" + webradio.radioId,
-            dataType: "json",
+            dataType: "json"
         });
 
         $.ajax({
             type: "GET",
             url: API_URL + API_ACTION_STATIONS_UUID + "/" + webradio.radioId,
-            dataType: "json",
+            dataType: "json"
         }).then((list) => {
             let data = list[0];
             webradio.radioUrl = data.url_resolved || data.url;

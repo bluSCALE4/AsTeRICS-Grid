@@ -8,7 +8,7 @@ class Dictionary extends Model({
     modelVersion: String,
     dictionaryKey: String,
     data: [String], //JSON data
-    isDefault: [Boolean],
+    isDefault: [Boolean]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -42,7 +42,7 @@ Dictionary.defaults({
     id: "", //will be replaced by constructor
     modelName: Dictionary.getModelName(),
     modelVersion: constants.MODEL_VERSION,
-    data: JSON.stringify({}),
+    data: JSON.stringify({})
 });
 
 export { Dictionary };

@@ -126,7 +126,7 @@ function initServiceWorker() {
                             actionLinkFn: () => {
                                 window.location.reload();
                             },
-                            msgType: "info",
+                            msgType: "info"
                         }
                     );
                 }
@@ -150,7 +150,7 @@ function checkAppVersion() {
                 actionLinkUrl:
                     "https://github.com/asterics/AsTeRICS-Grid/releases/tag/" +
                     constants.CURRENT_VERSION,
-                msgType: "info",
+                msgType: "info"
             });
             $(document).off(constants.EVENT_GRID_LOADED, showMsg);
         };

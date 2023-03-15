@@ -11,7 +11,7 @@ class InputEventKey extends Model({
     keyName: [String],
     repeat: [Number],
     timeout: [Number],
-    holdDuration: [Number],
+    holdDuration: [Number]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -38,7 +38,7 @@ InputEventKey.defaults({
     modelVersion: constants.MODEL_VERSION,
     repeat: 1,
     timeout: 0,
-    holdDuration: 0,
+    holdDuration: 0
 });
 
 export { InputEventKey };

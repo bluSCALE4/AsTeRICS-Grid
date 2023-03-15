@@ -38,7 +38,7 @@ test("encryptionService.encryptObject - Test 2", () => {
         data: "testdata",
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let expected = {
         modelName: MODEL_NAME,
@@ -46,7 +46,7 @@ test("encryptionService.encryptObject - Test 2", () => {
         _id: ID,
         _rev: REV,
         encryptedDataBase64: DEFAULT_ENC_KEY + JSON.stringify(object),
-        encryptedDataBase64Short: null,
+        encryptedDataBase64Short: null
     };
     encryptionService.setEncryptionProperties(DEFAULT_PASSWORD, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);
@@ -75,7 +75,7 @@ test("encryptionService.encryptObject - Test 4", () => {
         data: "testdata",
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let expected = {
         modelName: MODEL_NAME,
@@ -84,7 +84,7 @@ test("encryptionService.encryptObject - Test 4", () => {
         _rev: REV,
         encryptedDataBase64:
             DEFAULT_SALT + encryptionKey + JSON.stringify(object),
-        encryptedDataBase64Short: null,
+        encryptedDataBase64Short: null
     };
     encryptionService.setEncryptionProperties(encryptionKey, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);
@@ -99,13 +99,13 @@ test("encryptionService.encryptObject - shortening 1", () => {
         data: getLongData(501),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let objectShortened = {
         data: dataUtil.getDefaultRemovedPlaceholder(),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let expected = {
         modelName: MODEL_NAME,
@@ -115,7 +115,7 @@ test("encryptionService.encryptObject - shortening 1", () => {
         encryptedDataBase64:
             DEFAULT_SALT + encryptionKey + JSON.stringify(object),
         encryptedDataBase64Short:
-            DEFAULT_SALT + encryptionKey + JSON.stringify(objectShortened),
+            DEFAULT_SALT + encryptionKey + JSON.stringify(objectShortened)
     };
     encryptionService.setEncryptionProperties(encryptionKey, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);
@@ -130,13 +130,13 @@ test("encryptionService.decryptObject - shortening", () => {
         data: getLongData(501),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let objectShortened = {
         data: dataUtil.getDefaultRemovedPlaceholder(),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     encryptionService.setEncryptionProperties(encryptionKey, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);
@@ -157,7 +157,7 @@ test("encryptionService.decryptObject - shortening, no short version", () => {
         data: getLongData(10),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     encryptionService.setEncryptionProperties(encryptionKey, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);
@@ -174,7 +174,7 @@ test("encryptionService.encryptObject - shortening 2, below threshold", () => {
         data: getLongData(500),
         modelName: MODEL_NAME,
         id: ID,
-        _rev: REV,
+        _rev: REV
     };
     let expected = {
         modelName: MODEL_NAME,
@@ -183,7 +183,7 @@ test("encryptionService.encryptObject - shortening 2, below threshold", () => {
         _rev: REV,
         encryptedDataBase64:
             DEFAULT_SALT + encryptionKey + JSON.stringify(object),
-        encryptedDataBase64Short: null,
+        encryptedDataBase64Short: null
     };
     encryptionService.setEncryptionProperties(encryptionKey, DEFAULT_SALT);
     let result = encryptionService.encryptObject(object);

@@ -8,7 +8,7 @@ class GridActionNavigate extends Model({
     modelVersion: String,
     toGridId: [String],
     toLastGrid: [Boolean],
-    addToCollectElem: [Boolean],
+    addToCollectElem: [Boolean]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -30,7 +30,7 @@ GridActionNavigate.canBeTested = false;
 GridActionNavigate.defaults({
     id: "", //will be replaced by constructor
     modelName: GridActionNavigate.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { GridActionNavigate };

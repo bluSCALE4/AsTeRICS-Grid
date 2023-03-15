@@ -33,7 +33,7 @@ imageUtil.getBase64FromImg = function (img, maxWidth, quality, mimeType) {
         let data = canvas.toDataURL(mimeType, quality);
         return {
             data: data,
-            dim: getDimObject(canvas.width, canvas.height),
+            dim: getDimObject(canvas.width, canvas.height)
         };
     } catch (e) {
         throw "image converting failed!";
@@ -148,7 +148,7 @@ imageUtil.urlToBase64WithDimensions = function (url, maxWidth, mimeType) {
                 let fixedSvg = fixSvgDocumentFF(svgDocument);
                 resolve({
                     data: svgDocumentToBase64(fixedSvg),
-                    dim: getSvgDim(fixedSvg),
+                    dim: getSvgDim(fixedSvg)
                 });
             }).fail(function () {
                 resolve(null);
@@ -201,7 +201,7 @@ imageUtil.getScreenshot = function (selector) {
                                 "image/svg"
                             ) !== -1
                         );
-                    },
+                    }
                 })
                 .then((canvas) => {
                     return Promise.resolve(canvas.toDataURL("image/webp", 0.6));
@@ -252,7 +252,7 @@ imageUtil.getImageDimensionsFromImg = function (img) {
     return {
         width: width,
         height: height,
-        ratio: width / height,
+        ratio: width / height
     };
 };
 
@@ -332,7 +332,7 @@ function getDimObject(width, height) {
     return {
         width: width,
         height: height,
-        ratio: width / height,
+        ratio: width / height
     };
 }
 

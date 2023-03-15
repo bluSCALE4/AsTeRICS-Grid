@@ -57,7 +57,7 @@ notificationService.checkNotifications = async function () {
                     actionLink: i18nService.t("downloadNow"),
                     actionLinkFn: downloadConfig,
                     actionLink2: i18nService.t("stopRemembering"),
-                    actionLinkFn2: stopRemembering,
+                    actionLinkFn2: stopRemembering
                 }
             );
         }

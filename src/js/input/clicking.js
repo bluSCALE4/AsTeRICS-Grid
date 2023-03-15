@@ -8,7 +8,7 @@ Clicker.getInstanceFromConfig = function (inputConfig, itemSelector) {
     return new ClickerConstructor(itemSelector, {
         useMousedownEvent: inputConfig.mouseDownInsteadClick,
         useDoubleclick: inputConfig.mouseDoubleClickEnabled,
-        useSingleClick: inputConfig.mouseclickEnabled,
+        useSingleClick: inputConfig.mouseclickEnabled
     });
 };
 

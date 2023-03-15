@@ -8,7 +8,7 @@ class GridElementCollect extends GridElement.extend({
     mode: [String],
     singleLine: [Boolean],
     convertToLowercase: [Boolean],
-    textElemSizeFactor: [Number],
+    textElemSizeFactor: [Number]
 }) {
     constructor(props) {
         props = props || {};
@@ -24,9 +24,9 @@ class GridElementCollect extends GridElement.extend({
         props.textElemSizeFactor = 1.5;
         props.actions = props.actions || [
             new GridActionCollectElement({
-                action: GridActionCollectElement.COLLECT_ACTION_SPEAK_CONTINUOUS,
+                action: GridActionCollectElement.COLLECT_ACTION_SPEAK_CONTINUOUS
             }),
-            new GridActionPredict({ suggestOnChange: true }),
+            new GridActionPredict({ suggestOnChange: true })
         ];
         super(props);
     }
@@ -38,7 +38,7 @@ GridElementCollect.MODE_COLLECT_TEXT = "MODE_COLLECT_TEXT";
 GridElementCollect.MODES = [
     GridElementCollect.MODE_AUTO,
     GridElementCollect.MODE_COLLECT_SEPARATED,
-    GridElementCollect.MODE_COLLECT_TEXT,
+    GridElementCollect.MODE_COLLECT_TEXT
 ];
 
 export { GridElementCollect };

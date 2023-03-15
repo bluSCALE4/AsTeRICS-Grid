@@ -126,7 +126,7 @@ speechService.speak = function (textOrOject, options) {
             pitch:
                 isSelectedVoice && !options.useStandardRatePitch
                     ? _voicePitch
-                    : 1,
+                    : 1
         });
     }
     testIsSpeaking();
@@ -144,7 +144,7 @@ speechService.speak = function (textOrOject, options) {
             speechService.speak(textOrOject, {
                 preferredVoice: _secondVoiceName,
                 useStandardRatePitch: true,
-                voiceLangIsTextLang: true,
+                voiceLangIsTextLang: true
             });
         });
     }
@@ -236,7 +236,7 @@ speechService.testSpeak = function (voiceName, testSentence, testLang) {
         i18nService.tl("thisIsAnEnglishSentence", null, testLang);
     speechService.speak(testSentence, {
         preferredVoice: voiceName,
-        useStandardRatePitch: true,
+        useStandardRatePitch: true
     });
 };
 
@@ -354,7 +354,7 @@ function addVoice(voiceName, voiceLang, voiceType, voiceReference) {
         langFull: voiceLang,
         type: voiceType,
         ref: voiceReference,
-        local: voiceReference && voiceReference.localService ? true : false,
+        local: voiceReference && voiceReference.localService ? true : false
     });
 }
 

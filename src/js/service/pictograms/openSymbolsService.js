@@ -17,7 +17,7 @@ let _hasNextChunk = false;
 let searchProviderInfo = {
     name: openSymbolsService.SEARCH_PROVIDER_NAME,
     url: "https://www.opensymbols.org/",
-    service: openSymbolsService,
+    service: openSymbolsService
 };
 
 openSymbolsService.getSearchProviderInfo = function () {

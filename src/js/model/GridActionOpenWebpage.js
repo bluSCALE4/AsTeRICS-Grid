@@ -7,7 +7,7 @@ class GridActionOpenWebpage extends Model({
     modelName: String,
     modelVersion: String,
     openURL: [String],
-    timeoutSeconds: [Number],
+    timeoutSeconds: [Number]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -30,7 +30,7 @@ GridActionOpenWebpage.defaults({
     id: "", //will be replaced by constructor
     modelName: GridActionOpenWebpage.getModelName(),
     modelVersion: constants.MODEL_VERSION,
-    timeoutSeconds: 0,
+    timeoutSeconds: 0
 });
 
 export { GridActionOpenWebpage };

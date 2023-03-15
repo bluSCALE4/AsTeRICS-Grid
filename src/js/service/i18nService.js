@@ -31,7 +31,7 @@ let appLanguages = [
     "sl",
     "es",
     "uk",
-    "val",
+    "val"
 ];
 //all languages in german and english + ISO-639-1 code, extracted from https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes, sorted by german translation
 let allLangCodes = [
@@ -219,7 +219,7 @@ let allLangCodes = [
     "ts",
     "ii",
     "yo",
-    "za",
+    "za"
 ];
 let allLanguages = allLangCodes.map((code) => {
     return { code };
@@ -232,7 +232,7 @@ i18nService.getVueI18n = async function () {
     vueI18n = new VueI18n({
         locale: i18nService.getAppLang(), // set locale
         fallbackLocale: fallbackLang,
-        messages: {},
+        messages: {}
     });
     await loadLanguage(fallbackLang);
     getMetadataConfig();
@@ -379,7 +379,7 @@ i18nService.getTranslation = function (i18nObject, options) {
                 ? `${i18nObject[options.fallbackLang]}`
                 : {
                       lang: options.fallbackLang,
-                      text: `${i18nObject[options.fallbackLang]}`,
+                      text: `${i18nObject[options.fallbackLang]}`
                   };
         }
 
@@ -398,7 +398,7 @@ i18nService.getTranslation = function (i18nObject, options) {
 
 i18nService.getTranslationAppLang = function (i18nObject) {
     return i18nService.getTranslation(i18nObject, {
-        forceLang: i18nService.getAppLang(),
+        forceLang: i18nService.getAppLang()
     });
 };
 

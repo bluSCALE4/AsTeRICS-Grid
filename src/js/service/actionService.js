@@ -47,7 +47,7 @@ actionService.doAction = function (gridId, gridElementId) {
 actionService.testAction = function (gridElement, action, gridData) {
     doAction(gridElement, action, {
         gridId: gridData.id,
-        gridData: gridData,
+        gridData: gridData
     });
 };
 
@@ -82,7 +82,7 @@ function doActions(gridElement, gridId) {
     actions.forEach((action) => {
         doAction(gridElement, action, {
             gridId: gridId,
-            actions: actions,
+            actions: actions
         });
     });
 }
@@ -105,7 +105,7 @@ async function doAction(gridElement, action, options) {
             speechService.speak(gridElement.label, {
                 lang: action.speakLanguage,
                 speakSecondary: true,
-                minEqualPause: minPauseSpeak,
+                minEqualPause: minPauseSpeak
             });
             break;
         case "GridActionSpeakCustom":
@@ -114,7 +114,7 @@ async function doAction(gridElement, action, options) {
                 speechService.speak(action.speakText, {
                     lang: action.speakLanguage,
                     speakSecondary: true,
-                    minEqualPause: minPauseSpeak,
+                    minEqualPause: minPauseSpeak
                 });
             }
             break;

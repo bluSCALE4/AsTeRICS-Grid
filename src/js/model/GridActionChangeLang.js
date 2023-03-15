@@ -5,7 +5,7 @@ class GridActionChangeLang extends Model({
     id: String,
     modelName: String,
     language: [String],
-    voice: [String],
+    voice: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -24,7 +24,7 @@ class GridActionChangeLang extends Model({
 
 GridActionChangeLang.defaults({
     id: "", //will be replaced by constructor
-    modelName: GridActionChangeLang.getModelName(),
+    modelName: GridActionChangeLang.getModelName()
 });
 
 export { GridActionChangeLang };

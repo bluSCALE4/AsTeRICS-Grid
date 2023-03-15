@@ -10,7 +10,7 @@ let startTimes = {};
 let totalTimes = {};
 let maxEntry = {
     name: "",
-    time: 0,
+    time: 0
 };
 
 /**

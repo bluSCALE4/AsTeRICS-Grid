@@ -48,7 +48,7 @@ function getGridElementNormal(gridElem, fallbackLocale, metadata) {
     var txtContainerStyle = "font-size:" + fontUtil.getLastFontSize() + ";";
     var imgContainerMargin = "1%";
     let label = i18nService.getTranslation(gridElem.label, {
-        fallbackLocale: fallbackLocale,
+        fallbackLocale: fallbackLocale
     });
     label = util.convertLowerUppercase(label, metadata.textConfig.convertMode);
     var imgContainerMaxHeight = label ? "80%" : "100%";
@@ -212,7 +212,7 @@ function getAriaLabel(gridElem) {
         "?": "questionMark",
         '"': "quotationMark",
         "-": "hyphen",
-        " ": "space",
+        " ": "space"
     };
 
     if (Object.keys(singleCharMapping).includes(label)) {

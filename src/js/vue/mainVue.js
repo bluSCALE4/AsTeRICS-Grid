@@ -16,29 +16,29 @@ import ProgressBarModal from "../../vue-components/modals/progressBarModal.vue";
 let MainVue = {};
 let app = null;
 
-MainVue.setViewComponent = function(component, properties) {
+MainVue.setViewComponent = function (component, properties) {
     if (app && app.$refs.notificationBar.tooltipOptions.closeOnNavigate) {
         MainVue.clearTooltip();
     }
     app.setComponent(component, properties);
 };
 
-MainVue.isSidebarOpen = function() {
+MainVue.isSidebarOpen = function () {
     return app.showSidebar;
 };
 
-MainVue.setTooltip = function(html, options) {
+MainVue.setTooltip = function (html, options) {
     if (!app) {
         return;
     }
     return app.$refs.notificationBar.setTooltip(html, options);
 };
 
-MainVue.setTooltipI18n = function(text, options) {
+MainVue.setTooltipI18n = function (text, options) {
     MainVue.setTooltip(text, options);
 };
 
-MainVue.clearTooltip = function() {
+MainVue.clearTooltip = function () {
     if (!app) {
         return;
     }
@@ -53,7 +53,7 @@ MainVue.clearTooltip = function() {
  * @param options.cancelFn (optional) a function that is called if the user closes the progressbar modal
  * @param options.closable if true, the user can close the modal
  */
-MainVue.showProgressBar = function(percentage, options) {
+MainVue.showProgressBar = function (percentage, options) {
     if (!app) {
         return;
     }
@@ -61,9 +61,9 @@ MainVue.showProgressBar = function(percentage, options) {
     app.$refs.progressBar.setProgress(percentage, options);
 };
 
-MainVue.init = function() {
+MainVue.init = function () {
     Vue.use(VueI18n);
-    return i18nService.getVueI18n().then(i18n => {
+    return i18nService.getVueI18n().then((i18n) => {
         app = new Vue({
             i18n: i18n,
             el: "#app",
@@ -82,7 +82,7 @@ MainVue.init = function() {
                     showProgressBar: false,
                     constants: constants,
                     tooltipHTML: null,
-                    actionLink: null,
+                    actionLink: null
                 };
             },
             methods: {
@@ -104,7 +104,7 @@ MainVue.init = function() {
                     $.contextMenu("destroy");
                     setupContextMenu();
                     $("#moreNavigation").contextMenu();
-                },
+                }
             },
             mounted() {
                 let thiz = this;
@@ -120,7 +120,7 @@ MainVue.init = function() {
                         });
                         return;
                     }
-                    dataService.getMetadata().then(metadata => {
+                    dataService.getMetadata().then((metadata) => {
                         if (!metadata.locked && !metadata.fullscreen) {
                             thiz.showSidebar = true;
                             this.$nextTick(() => {
@@ -161,7 +161,7 @@ MainVue.init = function() {
                 thiz.syncState = dataService.getSyncState();
                 window.addEventListener("resize", () => {
                     util.debounce(
-                        function() {
+                        function () {
                             $(document).trigger(constants.EVENT_GRID_RESIZE);
                         },
                         300,
@@ -183,7 +183,7 @@ MainVue.init = function() {
                         return;
                     }
                     util.closeFullscreen();
-                    dataService.getMetadata().then(metadata => {
+                    dataService.getMetadata().then((metadata) => {
                         if (metadata.fullscreen) {
                             metadata.fullscreen = false;
                             dataService.saveMetadata(metadata).then(() => {
@@ -192,7 +192,7 @@ MainVue.init = function() {
                         }
                     });
                 }
-            },
+            }
         });
         return Promise.resolve();
     });
@@ -205,25 +205,25 @@ function setupContextMenu() {
     let menuItems = {
         CONTEXT_ADD_ONLINE: {
             name: i18nService.t("addOnlineUser"),
-            icon: "fas fa-user-plus",
+            icon: "fas fa-user-plus"
         },
         CONTEXT_ADD_OFFLINE: {
             name: i18nService.t("addOfflineUser"),
-            icon: "fas fa-user-plus",
+            icon: "fas fa-user-plus"
         },
         CONTEXT_ABOUT: {
             name: i18nService.t("aboutAstericsGrid"),
-            icon: "fas fa-info-circle",
-        },
+            icon: "fas fa-info-circle"
+        }
     };
     $.contextMenu({
         selector: "#moreNavigation",
-        callback: function(key, options) {
+        callback: function (key, options) {
             handleContextMenu(key);
         },
         items: menuItems,
         trigger: "left",
-        zIndex: 10,
+        zIndex: 10
     });
 
     function handleContextMenu(key) {

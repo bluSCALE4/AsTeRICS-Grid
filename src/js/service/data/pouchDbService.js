@@ -97,7 +97,7 @@ pouchDbService.all = function (idPrefix, id) {
     return new Promise((resolve, reject) => {
         let options = {
             include_docs: true,
-            attachments: false,
+            attachments: false
         };
         if (id) {
             options.key = id;
@@ -420,13 +420,13 @@ function changeHandler(changedIds, changedDocsEncrypted) {
     ) {
         $(document).trigger(constants.EVENT_DB_PULL_UPDATED, [
             changedIds,
-            changedDocs,
+            changedDocs
         ]);
         serviceWorkerService.cacheImagesOfGrids(changedDocs);
     } else {
         $(document).trigger(constants.EVENT_DB_DATAMODEL_UPDATE, [
             changedIds,
-            changedDocs,
+            changedDocs
         ]);
     }
 }

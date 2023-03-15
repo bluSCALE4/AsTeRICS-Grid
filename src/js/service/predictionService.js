@@ -38,7 +38,7 @@ predictionService.predict = function (input, dictionaryKey) {
         }
     }
     let suggestions = predictionary.predict(input, {
-        maxPredicitons: registeredPredictElements.length,
+        maxPredicitons: registeredPredictElements.length
     });
     for (let i = 0; i < registeredPredictElements.length; i++) {
         let text = suggestions[i] ? suggestions[i] : "";
@@ -95,7 +95,7 @@ predictionService.applyPrediction = function (
     }
     _unsavedChanges = true;
     return predictionary.applyPrediction(input, prediction, {
-        addToDictionary: dictionaryKey,
+        addToDictionary: dictionaryKey
     });
 };
 

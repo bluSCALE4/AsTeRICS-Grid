@@ -31,6 +31,7 @@
     "jest": "^24.5.0",
     "nano": "^9.0.3",
     "node-sass": "^7.0.1",
+    "prettier": "^2.8.4",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1",
     "vue-loader": "^15.4.0",
@@ -54,7 +55,8 @@
     "release-latest": "cp scripts/releaseBeta.sh scripts/releaseBeta.tmp.sh && sh scripts/releaseBeta.tmp.sh && rm scripts/releaseBeta.tmp.sh",
     "test": "jest",
     "stats": "webpack --config webpack.config.js --env.production --env.nolog --profile --json > stats.json && webpack-bundle-analyzer stats.json app/build_legacy",
-    "stats-dev": "webpack --config webpack.config.js --env.nolog --profile --json > stats.json && webpack-bundle-analyzer stats.json app/build_legacy"
+    "stats-dev": "webpack --config webpack.config.js --env.nolog --profile --json > stats.json && webpack-bundle-analyzer stats.json app/build_legacy",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -65,5 +67,8 @@
   "bugs": {
     "url": "https://github.com/asterics/AsTeRICS-Grid/issues"
   },
-  "homepage": "https://github.com/asterics/AsTeRICS-Grid#readme"
+  "homepage": "https://github.com/asterics/AsTeRICS-Grid#readme",
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
 }

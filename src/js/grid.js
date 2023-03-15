@@ -161,11 +161,11 @@ function Grid(gridContainerId, gridItemClass, options) {
                 minColumns: _minGridColumns,
                 widthHeightRatio: 1,
                 heightToFontSizeRatio: 0.25,
-                dragAndDrop: dragAndDrop,
+                dragAndDrop: dragAndDrop
             },
             {
                 start: notifyLayoutChangeStart,
-                stop: handleLayoutChange,
+                stop: handleLayoutChange
             }
         );
         _gridListInstance = _gridElement.data("_gridList");
@@ -230,11 +230,11 @@ function Grid(gridContainerId, gridItemClass, options) {
                 fontUtil.adaptFontSize(el);
                 _gridElement.gridList("resizeItem", ui.element.parent(), {
                     w: w,
-                    h: h,
+                    h: h
                 });
                 ui.element.css("height", "");
                 ui.element.css("width", "");
-            },
+            }
         };
     }
 

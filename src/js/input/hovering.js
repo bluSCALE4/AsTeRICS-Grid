@@ -24,7 +24,7 @@ Hover.getInstanceFromConfig = function (inputConfig, itemSelector, options) {
         )[0],
         timeoutMs: inputConfig.hoverTimeoutMs,
         demoMode: options.demoMode || inputConfig.hoverDisableHoverpane,
-        hideCursor: inputConfig.hoverHideCursor,
+        hideCursor: inputConfig.hoverHideCursor
     });
 };
 

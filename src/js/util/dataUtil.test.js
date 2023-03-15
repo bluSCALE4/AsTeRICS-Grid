@@ -59,7 +59,7 @@ test("dataUtil.removeLongPropertyValues - Test 7", () => {
     let maxLength = 3;
     let expectedObject = {
         a: dataUtil.getDefaultRemovedPlaceholder(),
-        b: "123",
+        b: "123"
     };
     expect(dataUtil.removeLongPropertyValues(object, maxLength)).toEqual(
         expectedObject
@@ -71,7 +71,7 @@ test("dataUtil.removeLongPropertyValues - Test 8", () => {
     let object = {
         a: "asdf",
         b: "123",
-        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }],
+        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }]
     };
     let maxLength = 3;
     let expectedObject = {
@@ -82,8 +82,8 @@ test("dataUtil.removeLongPropertyValues - Test 8", () => {
             "a",
             placeholder,
             [placeholder, "1", 3],
-            { a: "abc", b: placeholder },
-        ],
+            { a: "abc", b: placeholder }
+        ]
     };
     expect(dataUtil.removeLongPropertyValues(object, maxLength)).toEqual(
         expectedObject
@@ -95,7 +95,7 @@ test("dataUtil.removeLongPropertyValues - Test 9", () => {
     let object = {
         a: "asdf",
         b: "123",
-        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }],
+        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }]
     };
     let originalCopy = JSON.parse(JSON.stringify(object));
     let maxLength = 3;
@@ -107,8 +107,8 @@ test("dataUtil.removeLongPropertyValues - Test 9", () => {
             "a",
             placeholder,
             [placeholder, "1", 3],
-            { a: "abc", b: placeholder },
-        ],
+            { a: "abc", b: placeholder }
+        ]
     };
     expect(dataUtil.removeLongPropertyValues(object, maxLength)).toEqual(
         expectedObject
@@ -128,9 +128,9 @@ test("dataUtil.removeLongPropertyValues - Test 10", () => {
             z: null,
             a: undefined,
             b: {},
-            c: [],
+            c: []
         },
-        d: ["asdfa", 1, 2, "", "123"],
+        d: ["asdfa", 1, 2, "", "123"]
     };
     let maxLength = 3;
     let expectedObject = {
@@ -142,16 +142,16 @@ test("dataUtil.removeLongPropertyValues - Test 10", () => {
                 "a",
                 placeholder,
                 [placeholder, "1", 3],
-                { a: "abc", b: placeholder },
+                { a: "abc", b: placeholder }
             ],
             x: placeholder,
             y: 1,
             z: null,
             a: undefined,
             b: {},
-            c: [],
+            c: []
         },
-        d: [placeholder, 1, 2, "", "123"],
+        d: [placeholder, 1, 2, "", "123"]
     };
     expect(dataUtil.removeLongPropertyValues(object, maxLength)).toEqual(
         expectedObject
@@ -173,7 +173,7 @@ test("dataUtil.removeLongPropertyValues - Test 12", () => {
     let object = {
         a: "asdf",
         b: "123",
-        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }],
+        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }]
     };
     let maxLength = 3;
     let expectedObject = {
@@ -184,8 +184,8 @@ test("dataUtil.removeLongPropertyValues - Test 12", () => {
             "a",
             placeholder,
             [placeholder, "1", 3],
-            { a: "abc", b: placeholder },
-        ],
+            { a: "abc", b: placeholder }
+        ]
     };
     expect(
         dataUtil.removeLongPropertyValues(object, maxLength, placeholder)
@@ -197,7 +197,7 @@ test("dataUtil.removeLongPropertyValues - Test 13", () => {
     let object = {
         a: "asdf",
         b: "123",
-        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }],
+        c: [1, "a", "1234", ["11234", "1", 3], { a: "abc", b: "abcd" }]
     };
     let maxLength = 3;
     let expectedObject = {
@@ -208,8 +208,8 @@ test("dataUtil.removeLongPropertyValues - Test 13", () => {
             "a",
             placeholder,
             [placeholder, "1", 3],
-            { a: "abc", b: placeholder },
-        ],
+            { a: "abc", b: placeholder }
+        ]
     };
     expect(
         dataUtil.removeLongPropertyValues(object, maxLength, placeholder)

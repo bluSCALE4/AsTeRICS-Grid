@@ -7,7 +7,7 @@ class AdditionalGridFile extends Model({
     modelName: String,
     modelVersion: String,
     fileName: [String],
-    dataBase64: [String],
+    dataBase64: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -31,7 +31,7 @@ class AdditionalGridFile extends Model({
 AdditionalGridFile.defaults({
     id: "", //will be replaced by constructor
     modelName: AdditionalGridFile.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { AdditionalGridFile };

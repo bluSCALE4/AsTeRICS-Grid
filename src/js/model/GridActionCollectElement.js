@@ -6,7 +6,7 @@ class GridActionCollectElement extends Model({
     id: String,
     modelName: String,
     modelVersion: String,
-    action: [String],
+    action: [String]
 }) {
     constructor(properties, elementToCopy) {
         properties = modelUtil.setDefaults(
@@ -34,7 +34,7 @@ class GridActionCollectElement extends Model({
             GridActionCollectElement.COLLECT_ACTION_COPY_CLIPBOARD,
             GridActionCollectElement.COLLECT_ACTION_APPEND_CLIPBOARD,
             GridActionCollectElement.COLLECT_ACTION_CLEAR_CLIPBOARD,
-            GridActionCollectElement.COLLECT_ACTION_TO_YOUTUBE,
+            GridActionCollectElement.COLLECT_ACTION_TO_YOUTUBE
         ];
     }
 }
@@ -65,7 +65,7 @@ GridActionCollectElement.COLLECT_ACTION_TO_YOUTUBE =
 GridActionCollectElement.defaults({
     id: "", //will be replaced by constructor
     modelName: GridActionCollectElement.getModelName(),
-    modelVersion: constants.MODEL_VERSION,
+    modelVersion: constants.MODEL_VERSION
 });
 
 export { GridActionCollectElement };

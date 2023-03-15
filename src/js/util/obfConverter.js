@@ -35,7 +35,7 @@ obfConverter.OBFToGridData = function (obfObject, obfObjects) {
         label: i18nService.getTranslationObject(obfObject.name, locale),
         rowCount: obfObject.grid.rows,
         minColumnCount: obfObject.grid.columns,
-        gridElements: [],
+        gridElements: []
     });
     obfObject.buttons.forEach((button) => {
         if (!button.hidden) {
@@ -46,7 +46,7 @@ obfConverter.OBFToGridData = function (obfObject, obfObjects) {
                 label: i18nService.getTranslationObject(button.label, locale),
                 x: xy.x,
                 y: xy.y,
-                backgroundColor: button.background_color,
+                backgroundColor: button.background_color
             });
             gridElement = addActions(
                 gridElement,
@@ -147,7 +147,7 @@ function addActions(gridElement, obfButton, obfObject, obfObjects) {
         gridElement.actions.push(
             new GridActionSpeakCustom({
                 speakText: obfButton.vocalization,
-                speakLanguage: obfObject.locale,
+                speakLanguage: obfObject.locale
             })
         );
     }
@@ -156,7 +156,7 @@ function addActions(gridElement, obfButton, obfObject, obfObjects) {
         if (obfId) {
             gridElement.actions.push(
                 new GridActionNavigate({
-                    toGridId: obfId,
+                    toGridId: obfId
                 })
             );
         }
@@ -200,7 +200,7 @@ function orderToXY(buttonId, obfObject) {
             if (id === buttonId) {
                 returnValue = {
                     x: columnIndex,
-                    y: rowIndex,
+                    y: rowIndex
                 };
             }
         });
@@ -246,7 +246,7 @@ function getGridImage(imageId, obfObject, obfObjects) {
         } else {
             return Promise.resolve(
                 new GridImage({
-                    data: data,
+                    data: data
                 })
             );
         }
