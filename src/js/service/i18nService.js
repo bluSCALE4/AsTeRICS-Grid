@@ -13,26 +13,7 @@ let loadedLanguages = [];
 let fallbackLang = "en";
 let currentContentLang = null;
 
-let appLanguages = [
-    "en",
-    "de",
-    "eu",
-    "bg",
-    "ca",
-    "hr",
-    "fr",
-    "gl",
-    "he",
-    "hu",
-    "it",
-    "ko",
-    "pl",
-    "pt",
-    "sl",
-    "es",
-    "uk",
-    "val"
-];
+let appLanguages = ['en', 'de', 'eu', 'bg', 'ca', 'hr', 'nl', 'fr', 'gl', 'he', 'hu', 'it', 'ko', 'pl', 'pt', 'sl', 'es', 'uk', 'val'];
 //all languages in german and english + ISO-639-1 code, extracted from https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes, sorted by german translation
 let allLangCodes = [
     "ab",
